@@ -1,64 +1,56 @@
+import 'react-native-gesture-handler';
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import JarsScreen from './components/JarsScreen/JarsScreen';
+import SettingsScreen from './components/Settings/SettingsScreen';
+import PaydaySettings from './components/Settings/PaydaySettings';
+
+const Stack = createStackNavigator();
 
 class App extends Component {
   render() {
+    console.log('App props, ', this.props);
     return (
-      <SafeAreaView>
-        <View style={styles.header}>
-          <View style={styles.header__circle}>
-            <Text style={styles.header__circle__name}>AJ</Text>
-          </View>
-          <Icon name="menu" size={45} style={styles.header__menu} />
-        </View>
-        <Text style={styles.sectionTitle}>Hello, world.</Text>
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Jars">
+          <Stack.Screen
+            name="Jars"
+            component={JarsScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={SettingsScreen}
+            options={{title: 'Settings'}}
+          />
+          <Stack.Screen
+            name="Payday"
+            component={PaydaySettings}
+            options={{title: 'Payday'}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  body: {
-    backgroundColor: 'white',
-    color: '#4a4a4a',
-  },
-  header: {
-    backgroundColor: '#e6e6e6',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 18,
-  },
-  header__circle: {
-    backgroundColor: 'white',
-    borderRadius: 36,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 72,
-    width: 72,
-  },
-  header__circle__name: {
-    color: '#4A4A4A',
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-  header__menu: {
-    color: '#4A4A4A',
-    shadowColor: '#000',
-    shadowOffset: {width: 0.5, height: 1.5},
-    shadowOpacity: 0.5,
-    shadowRadius: 1.25,
-    position: 'absolute',
-    right: 18,
-  },
-});
-
 export default App;
+
+// const App = () => {
+//   return (
+//     <NavigationContainer>
+//       <Stack.Navigator>
+//         <Stack.Screen
+//           name="Jars"
+//           component={JarsScreen}
+//           options={{title: 'Welcome'}}
+//         />
+//         <Stack.Screen name="Settings" component={SettingsScreen} />
+//       </Stack.Navigator>
+//     </NavigationContainer>
+//   );
+// };
+// export default App;

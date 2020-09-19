@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ThreeJarsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ThreeJarsTests.m */; };
-		0439E4D1C7982B8EEC4AC833 /* libPods-ThreeJars-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E25B3375B957DBA5C19B1741 /* libPods-ThreeJars-tvOSTests.a */; };
+		06912350D527422695CE71BE /* Barlow-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 548E371CA54F422593D6C5B3 /* Barlow-Regular.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -16,13 +16,12 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* ThreeJarsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ThreeJarsTests.m */; };
-		335D121D18B9F7F951792852 /* libPods-ThreeJars.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B51DF6E4C44B738A431060 /* libPods-ThreeJars.a */; };
+		73BF1ADE9E80DB0642A1EBE4 /* libPods-ThreeJars-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3798F5A86A8A65955979F106 /* libPods-ThreeJars-tvOS.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		E9DF974F2E1F8CABAD111826 /* libPods-ThreeJars-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEF4D5BFD22C6269909C6E7A /* libPods-ThreeJars-tvOS.a */; };
-		EB0A3C9725131C1900A02B2E /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB0A3C9625131C1900A02B2E /* MaterialIcons.ttf */; };
-		EB0A3C9A25131C6F00A02B2E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB0A3C9825131C6F00A02B2E /* SimpleLineIcons.ttf */; };
-		EB0A3C9B25131C6F00A02B2E /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB0A3C9925131C6F00A02B2E /* Feather.ttf */; };
-		F86D4D2FCD181DEC551F8F00 /* libPods-ThreeJars-ThreeJarsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF05AB27D5339E58EA68565B /* libPods-ThreeJars-ThreeJarsTests.a */; };
+		887781AF5E44CA43AEC21240 /* libPods-ThreeJars-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BECD5AC09D15FEC25A612DE /* libPods-ThreeJars-tvOSTests.a */; };
+		C35D639AD7214C7183539704 /* Barlow-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 230E8FFB40574805995C0987 /* Barlow-Bold.ttf */; };
+		C3847A5C548551C3A91852A6 /* libPods-ThreeJars-ThreeJarsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EA02164D6B86E392D656154 /* libPods-ThreeJars-ThreeJarsTests.a */; };
+		E2F60A1A2B1D084CD69B1900 /* libPods-ThreeJars.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49246BD287A1375D4A38F360 /* libPods-ThreeJars.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,32 +46,33 @@
 		00E356EE1AD99517003FC87E /* ThreeJarsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThreeJarsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ThreeJarsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThreeJarsTests.m; sourceTree = "<group>"; };
+		0B0592D2150F01C51D4EAEF0 /* Pods-ThreeJars-ThreeJarsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-ThreeJarsTests.release.xcconfig"; path = "Target Support Files/Pods-ThreeJars-ThreeJarsTests/Pods-ThreeJars-ThreeJarsTests.release.xcconfig"; sourceTree = "<group>"; };
+		0EA02164D6B86E392D656154 /* libPods-ThreeJars-ThreeJarsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ThreeJars-ThreeJarsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* ThreeJars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThreeJars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ThreeJars/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ThreeJars/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ThreeJars/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ThreeJars/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ThreeJars/main.m; sourceTree = "<group>"; };
+		1500D214309B0CEB4D33EC29 /* Pods-ThreeJars-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ThreeJars-tvOS/Pods-ThreeJars-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		230E8FFB40574805995C0987 /* Barlow-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-Bold.ttf"; path = "../assets/fonts/Barlow-Bold.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* ThreeJars-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ThreeJars-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* ThreeJars-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ThreeJars-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		55DF7E5E3871138DC74B2BAD /* Pods-ThreeJars-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ThreeJars-tvOS/Pods-ThreeJars-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		586B21E2A12732C073A51F86 /* Pods-ThreeJars.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars.release.xcconfig"; path = "Target Support Files/Pods-ThreeJars/Pods-ThreeJars.release.xcconfig"; sourceTree = "<group>"; };
-		754A5BAE7FAE777C1221AE25 /* Pods-ThreeJars-ThreeJarsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-ThreeJarsTests.release.xcconfig"; path = "Target Support Files/Pods-ThreeJars-ThreeJarsTests/Pods-ThreeJars-ThreeJarsTests.release.xcconfig"; sourceTree = "<group>"; };
+		3798F5A86A8A65955979F106 /* libPods-ThreeJars-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ThreeJars-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DE66A40CAA6A200510541F4 /* Pods-ThreeJars.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars.debug.xcconfig"; path = "Target Support Files/Pods-ThreeJars/Pods-ThreeJars.debug.xcconfig"; sourceTree = "<group>"; };
+		49246BD287A1375D4A38F360 /* libPods-ThreeJars.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ThreeJars.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		52BB2A1AA69BA734376A750A /* Pods-ThreeJars-ThreeJarsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-ThreeJarsTests.debug.xcconfig"; path = "Target Support Files/Pods-ThreeJars-ThreeJarsTests/Pods-ThreeJars-ThreeJarsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		548E371CA54F422593D6C5B3 /* Barlow-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Barlow-Regular.ttf"; path = "../assets/fonts/Barlow-Regular.ttf"; sourceTree = "<group>"; };
+		568911757A023751F56A467B /* Pods-ThreeJars-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-tvOS.release.xcconfig"; path = "Target Support Files/Pods-ThreeJars-tvOS/Pods-ThreeJars-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ThreeJars/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		827B1EDB5640E863B1BD83D2 /* Pods-ThreeJars-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ThreeJars-tvOSTests/Pods-ThreeJars-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9FA198842A6E7FA2C2C3A2BF /* Pods-ThreeJars.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars.debug.xcconfig"; path = "Target Support Files/Pods-ThreeJars/Pods-ThreeJars.debug.xcconfig"; sourceTree = "<group>"; };
-		A66B72FF7BC9EDAE3A5FEF20 /* Pods-ThreeJars-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-tvOS.release.xcconfig"; path = "Target Support Files/Pods-ThreeJars-tvOS/Pods-ThreeJars-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		BEF4D5BFD22C6269909C6E7A /* libPods-ThreeJars-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ThreeJars-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CF05AB27D5339E58EA68565B /* libPods-ThreeJars-ThreeJarsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ThreeJars-ThreeJarsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E25B3375B957DBA5C19B1741 /* libPods-ThreeJars-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ThreeJars-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E2B51DF6E4C44B738A431060 /* libPods-ThreeJars.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ThreeJars.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB0A3C9625131C1900A02B2E /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		EB0A3C9825131C6F00A02B2E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		EB0A3C9925131C6F00A02B2E /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		ECF1097A1E7E8B4C080D5672 /* Pods-ThreeJars-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ThreeJars-tvOSTests/Pods-ThreeJars-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		8BECD5AC09D15FEC25A612DE /* libPods-ThreeJars-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ThreeJars-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAE2DFF1BEC890E464DBAE38 /* Pods-ThreeJars-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ThreeJars-tvOSTests/Pods-ThreeJars-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		B46E156BF2257C45AC4D180F /* Pods-ThreeJars.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars.release.xcconfig"; path = "Target Support Files/Pods-ThreeJars/Pods-ThreeJars.release.xcconfig"; sourceTree = "<group>"; };
+		E20744891AA4D45060E21459 /* Pods-ThreeJars-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ThreeJars-tvOSTests/Pods-ThreeJars-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EB3BB0882513307E00E2D9B5 /* Barlow-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Barlow-Regular.ttf"; path = "../assets/fonts/Barlow-Regular.ttf"; sourceTree = "<group>"; };
+		EB3BB0892513307E00E2D9B5 /* Barlow-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Barlow-Bold.ttf"; path = "../assets/fonts/Barlow-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F31D188A50DA2D86B40BFDE0 /* Pods-ThreeJars-ThreeJarsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreeJars-ThreeJarsTests.debug.xcconfig"; path = "Target Support Files/Pods-ThreeJars-ThreeJarsTests/Pods-ThreeJars-ThreeJarsTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F86D4D2FCD181DEC551F8F00 /* libPods-ThreeJars-ThreeJarsTests.a in Frameworks */,
+				C3847A5C548551C3A91852A6 /* libPods-ThreeJars-ThreeJarsTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				335D121D18B9F7F951792852 /* libPods-ThreeJars.a in Frameworks */,
+				E2F60A1A2B1D084CD69B1900 /* libPods-ThreeJars.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9DF974F2E1F8CABAD111826 /* libPods-ThreeJars-tvOS.a in Frameworks */,
+				73BF1ADE9E80DB0642A1EBE4 /* libPods-ThreeJars-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,7 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0439E4D1C7982B8EEC4AC833 /* libPods-ThreeJars-tvOSTests.a in Frameworks */,
+				887781AF5E44CA43AEC21240 /* libPods-ThreeJars-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,10 +147,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				E2B51DF6E4C44B738A431060 /* libPods-ThreeJars.a */,
-				CF05AB27D5339E58EA68565B /* libPods-ThreeJars-ThreeJarsTests.a */,
-				BEF4D5BFD22C6269909C6E7A /* libPods-ThreeJars-tvOS.a */,
-				E25B3375B957DBA5C19B1741 /* libPods-ThreeJars-tvOSTests.a */,
+				49246BD287A1375D4A38F360 /* libPods-ThreeJars.a */,
+				0EA02164D6B86E392D656154 /* libPods-ThreeJars-ThreeJarsTests.a */,
+				3798F5A86A8A65955979F106 /* libPods-ThreeJars-tvOS.a */,
+				8BECD5AC09D15FEC25A612DE /* libPods-ThreeJars-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -158,14 +158,14 @@
 		7F97233FCBBC003AA20DD0BF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9FA198842A6E7FA2C2C3A2BF /* Pods-ThreeJars.debug.xcconfig */,
-				586B21E2A12732C073A51F86 /* Pods-ThreeJars.release.xcconfig */,
-				F31D188A50DA2D86B40BFDE0 /* Pods-ThreeJars-ThreeJarsTests.debug.xcconfig */,
-				754A5BAE7FAE777C1221AE25 /* Pods-ThreeJars-ThreeJarsTests.release.xcconfig */,
-				55DF7E5E3871138DC74B2BAD /* Pods-ThreeJars-tvOS.debug.xcconfig */,
-				A66B72FF7BC9EDAE3A5FEF20 /* Pods-ThreeJars-tvOS.release.xcconfig */,
-				827B1EDB5640E863B1BD83D2 /* Pods-ThreeJars-tvOSTests.debug.xcconfig */,
-				ECF1097A1E7E8B4C080D5672 /* Pods-ThreeJars-tvOSTests.release.xcconfig */,
+				3DE66A40CAA6A200510541F4 /* Pods-ThreeJars.debug.xcconfig */,
+				B46E156BF2257C45AC4D180F /* Pods-ThreeJars.release.xcconfig */,
+				52BB2A1AA69BA734376A750A /* Pods-ThreeJars-ThreeJarsTests.debug.xcconfig */,
+				0B0592D2150F01C51D4EAEF0 /* Pods-ThreeJars-ThreeJarsTests.release.xcconfig */,
+				1500D214309B0CEB4D33EC29 /* Pods-ThreeJars-tvOS.debug.xcconfig */,
+				568911757A023751F56A467B /* Pods-ThreeJars-tvOS.release.xcconfig */,
+				E20744891AA4D45060E21459 /* Pods-ThreeJars-tvOSTests.debug.xcconfig */,
+				AAE2DFF1BEC890E464DBAE38 /* Pods-ThreeJars-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -180,15 +180,15 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				EB0A3C9925131C6F00A02B2E /* Feather.ttf */,
-				EB0A3C9825131C6F00A02B2E /* SimpleLineIcons.ttf */,
-				EB0A3C9625131C1900A02B2E /* MaterialIcons.ttf */,
+				EB3BB0892513307E00E2D9B5 /* Barlow-Bold.ttf */,
+				EB3BB0882513307E00E2D9B5 /* Barlow-Regular.ttf */,
 				13B07FAE1A68108700A75B9A /* ThreeJars */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ThreeJarsTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				7F97233FCBBC003AA20DD0BF /* Pods */,
+				E94276AB1FAC4F01ADD8AD71 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -206,6 +206,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E94276AB1FAC4F01ADD8AD71 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				230E8FFB40574805995C0987 /* Barlow-Bold.ttf */,
+				548E371CA54F422593D6C5B3 /* Barlow-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -213,11 +222,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ThreeJarsTests" */;
 			buildPhases = (
-				7423F00206C25B78B3034406 /* [CP] Check Pods Manifest.lock */,
+				EB5808724CE4DF648BB203AD /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				43E0C95E6203F59D6440D74F /* [CP] Copy Pods Resources */,
+				6E996CE0E19626F386BF33F7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -233,13 +242,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ThreeJars" */;
 			buildPhases = (
-				1DD30F1A4ABA4ADF161EFEDD /* [CP] Check Pods Manifest.lock */,
+				0601BF382297D429458D7B92 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				2C19E30632CEE01BE0EA16BA /* [CP] Copy Pods Resources */,
+				B6C0DF8597EF178C991B2648 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -254,7 +263,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ThreeJars-tvOS" */;
 			buildPhases = (
-				218F8F48D9D6F41270AE58CF /* [CP] Check Pods Manifest.lock */,
+				752E73728107EB7B32B194A7 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -274,7 +283,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ThreeJars-tvOSTests" */;
 			buildPhases = (
-				0F1E3D1A5D3CB5AF9AD161A8 /* [CP] Check Pods Manifest.lock */,
+				28AE9A9602BB182FFF5F28F8 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -349,10 +358,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				EB0A3C9A25131C6F00A02B2E /* SimpleLineIcons.ttf in Resources */,
-				EB0A3C9B25131C6F00A02B2E /* Feather.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				EB0A3C9725131C1900A02B2E /* MaterialIcons.ttf in Resources */,
+				C35D639AD7214C7183539704 /* Barlow-Bold.ttf in Resources */,
+				06912350D527422695CE71BE /* Barlow-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,29 +396,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		0F1E3D1A5D3CB5AF9AD161A8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ThreeJars-tvOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1DD30F1A4ABA4ADF161EFEDD /* [CP] Check Pods Manifest.lock */ = {
+		0601BF382297D429458D7B92 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -432,7 +418,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		218F8F48D9D6F41270AE58CF /* [CP] Check Pods Manifest.lock */ = {
+		28AE9A9602BB182FFF5F28F8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -447,61 +433,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ThreeJars-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-ThreeJars-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2C19E30632CEE01BE0EA16BA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ThreeJars/Pods-ThreeJars-resources.sh",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ThreeJars/Pods-ThreeJars-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
@@ -518,7 +454,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		43E0C95E6203F59D6440D74F /* [CP] Copy Pods Resources */ = {
+		6E996CE0E19626F386BF33F7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -568,7 +504,79 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ThreeJars-ThreeJarsTests/Pods-ThreeJars-ThreeJarsTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7423F00206C25B78B3034406 /* [CP] Check Pods Manifest.lock */ = {
+		752E73728107EB7B32B194A7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ThreeJars-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6C0DF8597EF178C991B2648 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ThreeJars/Pods-ThreeJars-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ThreeJars/Pods-ThreeJars-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB5808724CE4DF648BB203AD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -683,7 +691,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F31D188A50DA2D86B40BFDE0 /* Pods-ThreeJars-ThreeJarsTests.debug.xcconfig */;
+			baseConfigurationReference = 52BB2A1AA69BA734376A750A /* Pods-ThreeJars-ThreeJarsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -707,7 +715,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 754A5BAE7FAE777C1221AE25 /* Pods-ThreeJars-ThreeJarsTests.release.xcconfig */;
+			baseConfigurationReference = 0B0592D2150F01C51D4EAEF0 /* Pods-ThreeJars-ThreeJarsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -728,7 +736,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FA198842A6E7FA2C2C3A2BF /* Pods-ThreeJars.debug.xcconfig */;
+			baseConfigurationReference = 3DE66A40CAA6A200510541F4 /* Pods-ThreeJars.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -752,7 +760,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 586B21E2A12732C073A51F86 /* Pods-ThreeJars.release.xcconfig */;
+			baseConfigurationReference = B46E156BF2257C45AC4D180F /* Pods-ThreeJars.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -774,7 +782,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55DF7E5E3871138DC74B2BAD /* Pods-ThreeJars-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 1500D214309B0CEB4D33EC29 /* Pods-ThreeJars-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -803,7 +811,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A66B72FF7BC9EDAE3A5FEF20 /* Pods-ThreeJars-tvOS.release.xcconfig */;
+			baseConfigurationReference = 568911757A023751F56A467B /* Pods-ThreeJars-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -832,7 +840,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 827B1EDB5640E863B1BD83D2 /* Pods-ThreeJars-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = E20744891AA4D45060E21459 /* Pods-ThreeJars-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -860,7 +868,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ECF1097A1E7E8B4C080D5672 /* Pods-ThreeJars-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = AAE2DFF1BEC890E464DBAE38 /* Pods-ThreeJars-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
