@@ -4,6 +4,7 @@ import WeeklyAllowanceSettings from './WeeklyAllowanceSettings';
 import Log from './Log';
 
 const SettingsScreen = (props) => {
+  // console.log('SettingsScreen props = ', props);
   return (
     <SafeAreaView>
       <WeeklyAllowanceSettings {...props} />

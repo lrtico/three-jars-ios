@@ -12,7 +12,7 @@ const Log = (props) => {
         <View style={styles.row}>
           <Pressable
             style={styles.row__wrapper}
-            onPress={() => navigation.navigate('Payday')}>
+            onPress={() => navigation.navigate('LogHistory')}>
             <Text style={styles.row__title}>Log</Text>
             <Icon
               name="arrow-forward-ios"

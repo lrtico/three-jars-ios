@@ -12,38 +12,61 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 const PaydaySettings = (props) => {
-  console.log('WeeklyAllowanceSettings props = ', props);
-  const {navigation} = props;
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-  // const [value, onChangeText] = React.useState('$');
+  console.log('PaydaySettings props = ', props);
+  const {
+    navigation,
+    paydayIsEnabled,
+    handlePaydayIsEnabled,
+    paydayAmount,
+    handlePaydayAmount,
+    isSelectedPayday,
+    paydayTime,
+  } = props;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>WEEKLY ALLOWANCE SETTINGS</Text>
       <View style={styles.section}>
         <View style={[styles.row, styles.rowBorderBottom]}>
-          <Text style={styles.row__title}>Payday</Text>
+          <Text style={styles.row__title}>Enable Payday</Text>
           <Switch
             trackColor={{false: '#767577', true: '#34C759'}}
-            thumbColor={isEnabled ? 'white' : '#f4f3f4'}
+            thumbColor={paydayIsEnabled ? 'white' : '#f4f3f4'}
             ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
+            onValueChange={handlePaydayIsEnabled}
+            value={paydayIsEnabled}
           />
         </View>
-        <View style={styles.row}>
+        <View style={[styles.row, styles.rowBorderBottom]}>
           <Text style={styles.row__title}>Amount</Text>
           <Text style={styles.row__value}>$</Text>
           <TextInput
             style={styles.textinput}
-            // onChangeText={(text) => onChangeText(text)}
-            // value={value}
+            onChangeText={(text) => handlePaydayAmount(text)}
+            value={paydayAmount}
             placeholder={'Enter amount'}
             clearButtonMode={'while-editing'}
             keyboardType={'numeric'}
             returnKeyType={'done'}
             maxLength={6}
           />
+        </View>
+        <View>
+          <Pressable
+            style={styles.row}
+            onPress={() => navigation.navigate('ChoosePayday')}>
+            <Text style={styles.row__title}>Day/time</Text>
+            <Text style={[styles.row__value, styles.row__icon]}>
+              {paydayIsEnabled
+                ? `${isSelectedPayday}, ${paydayTime}`
+                : 'Click to select a day and time'}
+            </Text>
+            <Icon
+              name="arrow-forward-ios"
+              size={18}
+              color="#7a7a7a"
+              style={styles.iconcontrol}
+            />
+          </Pressable>
         </View>
       </View>
     </View>
@@ -87,7 +110,6 @@ const styles = StyleSheet.create({
   row__value: {
     fontSize: 18,
     marginLeft: 'auto',
-    marginRight: 3,
   },
   row__icon: {
     color: 'rgba(112,112,112,.5)',
@@ -97,6 +119,10 @@ const styles = StyleSheet.create({
   },
 });
 
-PaydaySettings.propTypes = {};
+PaydaySettings.propTypes = {
+  navigation: PropTypes.object,
+  paydayIsEnabled: PropTypes.bool,
+  handlePaydayIsEnabled: PropTypes.func,
+};
 
 export default PaydaySettings;

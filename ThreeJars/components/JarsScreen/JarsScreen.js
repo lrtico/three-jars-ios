@@ -25,6 +25,28 @@ const JarsScreen = ({navigation}) => {
             <Icon name="menu" size={45} style={styles.iconcontrol} />
           </Pressable>
         </View>
+        <View style={[styles.jar, styles.jarspend]}>
+          <View style={styles.jar__controls}>
+            <Icon
+              name="add"
+              size={45}
+              style={[styles.iconcontrol, styles.jar__control]}
+            />
+            <Icon
+              name="remove"
+              size={45}
+              style={[styles.iconcontrol, styles.jar__control]}
+              onPress={() => navigation.navigate('JarAdd')}
+            />
+          </View>
+          <View style={styles.jar__amount}>
+            <View style={styles.jar__amount__wrap}>
+              <Text style={styles.jar__amount__dollarsign}>$</Text>
+              <Text style={styles.jar__amount__dollars}>3.75</Text>
+            </View>
+          </View>
+          <Text style={styles.jar__label}>Spend</Text>
+        </View>
         <View style={[styles.jar, styles.jarsave]}>
           <View style={styles.jar__controls}>
             <Icon
@@ -45,27 +67,6 @@ const JarsScreen = ({navigation}) => {
             </View>
           </View>
           <Text style={styles.jar__label}>Save</Text>
-        </View>
-        <View style={[styles.jar, styles.jarspend]}>
-          <View style={styles.jar__controls}>
-            <Icon
-              name="add"
-              size={45}
-              style={[styles.iconcontrol, styles.jar__control]}
-            />
-            <Icon
-              name="remove"
-              size={45}
-              style={[styles.iconcontrol, styles.jar__control]}
-            />
-          </View>
-          <View style={styles.jar__amount}>
-            <View style={styles.jar__amount__wrap}>
-              <Text style={styles.jar__amount__dollarsign}>$</Text>
-              <Text style={styles.jar__amount__dollars}>3.75</Text>
-            </View>
-          </View>
-          <Text style={styles.jar__label}>Spend</Text>
         </View>
         <View style={[styles.jar, styles.jarshare]}>
           <View style={styles.jar__controls}>
@@ -100,6 +101,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   jarswrapper: {
+    backgroundColor: 'white',
     flexDirection: 'column',
     alignItems: 'stretch',
     flexGrow: 1,
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1.25,
   },
   header: {
-    backgroundColor: '#e6e6e6',
+    backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
     padding: 18,
   },
   header__circle: {
-    backgroundColor: '#690871',
+    backgroundColor: '#F7E665',
     borderRadius: 36,
     justifyContent: 'center',
     alignItems: 'center',
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
     width: 72,
   },
   header__circle__name: {
-    color: 'white',
+    color: '#4A4A4A',
     fontFamily: 'Barlow-Regular',
     fontSize: 30,
     fontWeight: 'bold',
