@@ -3,13 +3,9 @@ import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Alert} from 'react-native';
-import JarsScreen from './components/JarsScreen/JarsScreen';
-import SettingsScreen from './components/Settings/SettingsScreen';
-import PaydaySettings from './components/Settings/PaydaySettings';
-import PaydayDateTimeSettings from './components/Settings/PaydayDateTimeSettings';
-import LogHistory from './components/Settings/LogHistory';
-import JarPercentages from './components/Settings/JarPercentages';
+// import AsyncStorage from '@react-native-community/async-storage';
 import JarAdd from './components/JarsScreen/JarAdd';
+import JarMinus from './components/JarsScreen/JarMinus';
 import MainStackScreen from './components/Navigation/MainStackScreen';
 
 const Stack = createStackNavigator();
@@ -39,37 +35,54 @@ class App extends Component {
     logDataFilter: '',
     logData: [],
     filteredLogData: [],
+    activeJar: '',
+    spendJarValue: 0,
+    spendJarIncomingValue: 0,
+    spendJarNote: '',
+    spendJarNewValue: 0,
+    spendJarOldValue: 0,
+    saveJarValue: 0,
+    saveJarIncomingValue: 0,
+    saveJarNote: '',
+    saveJarNewValue: 0,
+    saveJarOldValue: 0,
+    shareJarValue: 0,
+    shareJarIncomingValue: 0,
+    shareJarNote: '',
+    shareJarNewValue: 0,
+    shareJarOldValue: 0,
+    isDisabledMinusButton: true,
+    isDisabledAddButton: true,
   };
 
   componentDidMount() {
-    const data = [
-      {
-        id: '1',
-        jar: 'Spend jar',
-        date: 'Mon Sep 07 2020',
-        details: 'Mopping the floors',
-        amount: '+3.5',
-        total: '5.00',
-      },
-      {
-        id: '2',
-        jar: 'Spend jar',
-        date: 'Sat Sep 12 2020',
-        details: 'Weekly chores',
-        amount: '+7',
-        total: '12.00',
-      },
-      {
-        id: '3',
-        jar: 'Save jar',
-        date: 'Sat Sep 12 2020',
-        details: 'Weekly chores',
-        amount: '+1',
-        total: '3.00',
-      },
-    ];
-    this.setState({logData: data, filteredLogData: data});
+    // console.log('componentDidMount go now');
+    this.readJarValue();
   }
+
+  // saveJarValue = async (value) => {
+  //   console.log('AsyncStorage save go now!', value);
+  //   try {
+  //     await AsyncStorage.setItem('@JarsStore_spendJarValue', value);
+  //     console.log('AsyncStorage go now,');
+  //   } catch (error) {
+  //     console.error('Error saving data to AsyncStorage', error);
+  //   }
+  // };
+
+  readJarValue = async () => {
+    console.log('readJarValue go now!');
+    // try {
+    //   const value = await AsyncStorage.getItem('@JarsStore_spendJarValue');
+    //   if (value !== null) {
+    //     console.log('Fetched data from AsyncStorage', value);
+    //   } else {
+    //     console.log('No data in AsyncStorage key', value);
+    //   }
+    // } catch (error) {
+    //   console.error('Error fetching AsyncStorage', error);
+    // }
+  };
 
   setJarPercent = (value, jar) => {
     // console.log('Value passed from setJarPercent = ', value);
@@ -247,8 +260,10 @@ class App extends Component {
     // console.log('Filter log history search term = ', text);
     this.setState({logDataFilter: text});
     const newData = this.state.filteredLogData.filter((log) => {
-      const logItem = `${log.jar} ${log.date} ${log.details} ${log.amount} ${log.total}`;
-      const searchTerm = text;
+      const logItem = `${log.jar.toUpperCase()} ${
+        log.date
+      } ${log.details.toUpperCase()} ${log.amount} ${log.total}`;
+      const searchTerm = text.toUpperCase();
       return logItem.indexOf(searchTerm) > -1;
     });
     // console.log('Filter log history newData array = ', newData);
@@ -270,9 +285,227 @@ class App extends Component {
     this.setState({paydayTime: selectedTime, payDayPickerTime: selectedDate});
   };
 
+  setActiveJar = (props, jar, math) => {
+    // console.log('setActiveJar args = ', props, jar, math);
+
+    this.setState({activeJar: jar});
+
+    const path = math === 'minus' ? 'JarMinus' : 'JarAdd';
+    props.navigation.navigate(path);
+  };
+
+  setJarNote = (note) => {
+    // console.log('setJarNote go now');
+    const {activeJar} = this.state;
+
+    switch (activeJar) {
+      case 'spend':
+        this.setState({spendJarNote: note});
+        break;
+      case 'save':
+        this.setState({saveJarNote: note});
+        break;
+      case 'share':
+        this.setState({shareJarNote: note});
+        break;
+    }
+  };
+
+  setIncomingJarValue = (amount, jar, math) => {
+    const {spendJarValue, saveJarValue, shareJarValue, activeJar} = this.state;
+
+    const incomingValue =
+      math === 'minus' ? parseFloat(amount) * -1 : parseFloat(amount);
+
+    // console.log('incomingValue = ', incomingValue, jar, math);
+
+    switch (activeJar) {
+      case 'spend':
+        const newSpendTotal = parseFloat(spendJarValue + incomingValue);
+
+        this.setState({
+          spendJarOldValue: spendJarValue,
+          spendJarNewValue: newSpendTotal,
+          isDisabledMinusButton: false,
+          isDisabledAddButton: false,
+          spendJarIncomingValue: incomingValue,
+        });
+        break;
+      case 'save':
+        const newSaveTotal = parseFloat(saveJarValue + incomingValue);
+
+        this.setState({
+          saveJarOldValue: saveJarValue,
+          saveJarNewValue: newSaveTotal,
+          isDisabledMinusButton: false,
+          isDisabledAddButton: false,
+          saveJarIncomingValue: incomingValue,
+        });
+        break;
+      case 'share':
+        const newShareTotal = parseFloat(shareJarValue + incomingValue);
+
+        this.setState({
+          shareJarOldValue: saveJarValue,
+          shareJarNewValue: newShareTotal,
+          isDisabledMinusButton: false,
+          isDisabledAddButton: false,
+          shareJarIncomingValue: incomingValue,
+        });
+        break;
+    }
+  };
+
+  setJarValue = (props, jar) => {
+    const {
+      activeJar,
+      spendJarValue,
+      spendJarIncomingValue,
+      spendJarNewValue,
+      spendJarNote,
+      saveJarValue,
+      saveJarIncomingValue,
+      saveJarNewValue,
+      saveJarNote,
+      shareJarValue,
+      shareJarIncomingValue,
+      shareJarNewValue,
+      shareJarNote,
+      logData,
+    } = this.state;
+    // console.log('setJarValue amount = ', props, jar);
+    // console.log('setJarValue state at beginning of function', this.state);
+
+    const getDate = () => {
+      const date = new Date().toDateString();
+      return date;
+    };
+
+    let log = {};
+    let logCopy = [];
+
+    switch (activeJar) {
+      case 'spend':
+        log = {
+          id: logData.length + 1,
+          jar: jar,
+          date: getDate(),
+          details: spendJarNote,
+          amount: spendJarIncomingValue,
+          total: spendJarNewValue,
+        };
+
+        // console.log('log = ', log);
+        logCopy = [...logData, log];
+        // console.log('logCopy = ', logCopy);
+
+        this.setState({
+          spendJarNote: '',
+          spendJarValue: spendJarNewValue,
+          spendJarOldValue: spendJarNewValue,
+          spendJarNewValue: 0,
+          isDisabledMinusButton: true,
+          isDisabledAddButton: true,
+          logData: logCopy,
+          filteredLogData: logCopy,
+        });
+
+        // this.saveJarValue(spendJarValue);
+
+        break;
+      case 'save':
+        log = {
+          id: logData.length + 1,
+          jar: jar,
+          date: getDate(),
+          details: saveJarNote,
+          amount: saveJarIncomingValue,
+          total: saveJarNewValue,
+        };
+
+        // console.log('log = ', log);
+        logCopy = [...logData, log];
+        // console.log('logCopy = ', logCopy);
+
+        this.setState({
+          saveJarNote: '',
+          saveJarValue: saveJarNewValue,
+          saveJarOldValue: saveJarNewValue,
+          saveJarNewValue: 0,
+          isDisabledMinusButton: true,
+          isDisabledAddButton: true,
+          logData: logCopy,
+          filteredLogData: logCopy,
+        });
+        break;
+      case 'share':
+        log = {
+          id: logData.length + 1,
+          jar: jar,
+          date: getDate(),
+          details: shareJarNote,
+          amount: shareJarIncomingValue,
+          total: shareJarNewValue,
+        };
+
+        // console.log('log = ', log);
+        logCopy = [...logData, log];
+        // console.log('logCopy = ', logCopy);
+
+        this.setState({
+          shareJarNote: '',
+          shareJarValue: shareJarNewValue,
+          shareJarOldValue: shareJarNewValue,
+          shareJarNewValue: 0,
+          isDisabledMinusButton: true,
+          isDisabledAddButton: true,
+          logData: logCopy,
+          filteredLogData: logCopy,
+        });
+        break;
+    }
+
+    // console.log('setJarValue finished, state updated to ', this.state);
+    props.navigation.navigate('Jars');
+  };
+
+  cancelChangeJarValue = (props) => {
+    // console.log('cancelChangeJarValue go now!', props);
+    const {activeJar} = this.state;
+
+    switch (activeJar) {
+      case 'spend':
+        this.setState({
+          spendJarNewValue: 0,
+          isDisabledMinusButton: true,
+          isDisabledAddButton: true,
+          spendJarNote: '',
+        });
+        break;
+      case 'save':
+        this.setState({
+          saveJarNewValue: 0,
+          isDisabledMinusButton: true,
+          isDisabledAddButton: true,
+          saveJarNote: '',
+        });
+        break;
+      case 'share':
+        this.setState({
+          shareJarNewValue: 0,
+          isDisabledMinusButton: true,
+          isDisabledAddButton: true,
+          shareJarNote: '',
+        });
+        break;
+    }
+    props.navigation.goBack();
+  };
+
   render() {
     // console.log('App props, ', this.props);
     const {
+      activeJar,
       spendJarPercent,
       saveJarPercent,
       shareJarPercent,
@@ -294,6 +527,20 @@ class App extends Component {
       payDayPickerTime,
       logData,
       logDataFilter,
+      spendJarValue,
+      spendJarNote,
+      spendJarOldValue,
+      spendJarNewValue,
+      saveJarValue,
+      saveJarNote,
+      saveJarOldValue,
+      saveJarNewValue,
+      shareJarValue,
+      shareJarNote,
+      shareJarOldValue,
+      shareJarNewValue,
+      isDisabledMinusButton,
+      isDisabledAddButton,
     } = this.state;
     return (
       <NavigationContainer>
@@ -314,6 +561,7 @@ class App extends Component {
                 handlePaydayIsEnabled={this.setPaydayIsEnabled}
                 handlePaydayAmount={this.setPaydayAmount}
                 handleJarPercentage={this.setJarPercent}
+                handleActiveJar={this.setActiveJar}
                 spendJarPercent={spendJarPercent}
                 saveJarPercent={saveJarPercent}
                 shareJarPercent={shareJarPercent}
@@ -335,14 +583,68 @@ class App extends Component {
                 isSelectedPaydayFriday={isSelectedPaydayFriday}
                 isSelectedPaydaySaturday={isSelectedPaydaySaturday}
                 paydayAmount={paydayAmount}
+                spendJarValue={spendJarValue}
+                saveJarValue={saveJarValue}
+                shareJarValue={shareJarValue}
               />
             )}
           </RootStack.Screen>
           <RootStack.Screen
             name="JarAdd"
-            component={JarAdd}
-            options={{headerMode: 'none', headerShown: false}}
-          />
+            // component={JarAdd}
+            options={{headerMode: 'none', headerShown: false}}>
+            {(props) => (
+              <JarAdd
+                {...props}
+                activeJar={activeJar}
+                spendJarValue={spendJarValue}
+                spendJarNote={spendJarNote}
+                spendJarOldValue={spendJarOldValue}
+                spendJarNewValue={spendJarNewValue}
+                saveJarValue={saveJarValue}
+                saveJarNote={saveJarNote}
+                saveJarOldValue={saveJarOldValue}
+                saveJarNewValue={saveJarNewValue}
+                shareJarValue={shareJarValue}
+                shareJarNote={shareJarNote}
+                shareJarOldValue={shareJarOldValue}
+                shareJarNewValue={shareJarNewValue}
+                isDisabledAddButton={isDisabledAddButton}
+                handleJarNote={this.setJarNote}
+                handleJarValue={this.setJarValue}
+                handleIncomingJarValue={this.setIncomingJarValue}
+                handleCancelJarValue={this.cancelChangeJarValue}
+              />
+            )}
+          </RootStack.Screen>
+          <RootStack.Screen
+            name="JarMinus"
+            // component={JarMinus}
+            options={{headerMode: 'none', headerShown: false}}>
+            {(props) => (
+              <JarMinus
+                {...props}
+                activeJar={activeJar}
+                spendJarValue={spendJarValue}
+                spendJarNote={spendJarNote}
+                spendJarOldValue={spendJarOldValue}
+                spendJarNewValue={spendJarNewValue}
+                saveJarValue={saveJarValue}
+                saveJarNote={saveJarNote}
+                saveJarOldValue={saveJarOldValue}
+                saveJarNewValue={saveJarNewValue}
+                shareJarValue={shareJarValue}
+                shareJarNote={shareJarNote}
+                shareJarOldValue={shareJarOldValue}
+                shareJarNewValue={shareJarNewValue}
+                isDisabledMinusButton={isDisabledMinusButton}
+                handleJarNote={this.setJarNote}
+                handleJarValue={this.setJarValue}
+                handleIncomingJarValue={this.setIncomingJarValue}
+                handleCancelJarValue={this.cancelChangeJarValue}
+              />
+            )}
+          </RootStack.Screen>
         </RootStack.Navigator>
       </NavigationContainer>
     );
@@ -350,19 +652,3 @@ class App extends Component {
 }
 
 export default App;
-
-// const App = () => {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         <Stack.Screen
-//           name="Jars"
-//           component={JarsScreen}
-//           options={{title: 'Welcome'}}
-//         />
-//         <Stack.Screen name="Settings" component={SettingsScreen} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// };
-// export default App;
