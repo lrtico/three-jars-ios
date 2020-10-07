@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Alert} from 'react-native';
+import {Alert, AsyncStorage} from 'react-native';
 // import AsyncStorage from '@react-native-community/async-storage';
 import JarAdd from './components/JarsScreen/JarAdd';
 import JarMinus from './components/JarsScreen/JarMinus';
@@ -20,8 +20,10 @@ class App extends Component {
     shareJarPercent: 10,
     maxShareJarPercent: 100,
     showJarPercentError: false,
+    showJarPercentSuccess: true,
+    showJarPercentCheck: false,
     paydayIsEnabled: true,
-    paydayAmount: '',
+    paydayAmount: '5',
     isSelectedPayday: 'Saturday',
     isSelectedPaydaySunday: false,
     isSelectedPaydayMonday: false,
@@ -31,7 +33,7 @@ class App extends Component {
     isSelectedPaydayFriday: false,
     isSelectedPaydaySaturday: true,
     paydayTime: '12:00 PM',
-    payDayPickerTime: '2020-09-23T18:00:00.000Z',
+    payDayPickerTime: new Date(),
     logDataFilter: '',
     logData: [],
     filteredLogData: [],
@@ -57,40 +59,124 @@ class App extends Component {
 
   componentDidMount() {
     // console.log('componentDidMount go now');
-    this.readJarValue();
+    // AsyncStorage.setItem('@Jars_spendJarValue', '3');
+    this.loadJarValue();
+    this.loadPaydaySettingsIsEnabled();
+    this.loadPaydaySettingsAmount();
   }
 
-  // saveJarValue = async (value) => {
-  //   console.log('AsyncStorage save go now!', value);
-  //   try {
-  //     await AsyncStorage.setItem('@JarsStore_spendJarValue', value);
-  //     console.log('AsyncStorage go now,');
-  //   } catch (error) {
-  //     console.error('Error saving data to AsyncStorage', error);
-  //   }
-  // };
+  storeJarValue = async (jar, value, logs) => {
+    const val = value.toString();
+    const logHistory = JSON.stringify(logs);
 
-  readJarValue = async () => {
-    console.log('readJarValue go now!');
-    // try {
-    //   const value = await AsyncStorage.getItem('@JarsStore_spendJarValue');
-    //   if (value !== null) {
-    //     console.log('Fetched data from AsyncStorage', value);
-    //   } else {
-    //     console.log('No data in AsyncStorage key', value);
-    //   }
-    // } catch (error) {
-    //   console.error('Error fetching AsyncStorage', error);
-    // }
+    switch (jar) {
+      case 'spend':
+        AsyncStorage.setItem('@Jars_spendJarValue', val);
+        break;
+      case 'save':
+        AsyncStorage.setItem('@Jars_saveJarValue', val);
+        break;
+      case 'share':
+        AsyncStorage.setItem('@Jars_shareJarValue', val);
+        break;
+    }
+    AsyncStorage.setItem('@Jars_log', logHistory);
+  };
+
+  loadJarValue = async () => {
+    // console.log('readJarValue go now!');
+    try {
+      const spendValue = await AsyncStorage.getItem('@Jars_spendJarValue');
+      const saveValue = await AsyncStorage.getItem('@Jars_saveJarValue');
+      const shareValue = await AsyncStorage.getItem('@Jars_shareJarValue');
+      const logs = await AsyncStorage.getItem('@Jars_log');
+
+      if (spendValue !== null && logs !== null) {
+        const spendVal = parseFloat(spendValue);
+        const saveVal = parseFloat(saveValue);
+        const shareVal = parseFloat(shareValue);
+        const logParsed = JSON.parse(logs);
+        // console.log('Fetched data from AsyncStorage', spendValue, logParsed);
+        this.setState({
+          spendJarValue: spendVal,
+          saveJarValue: saveVal,
+          shareJarValue: shareVal,
+          logData: logParsed,
+          filteredLogData: logParsed,
+        });
+      } else {
+        console.log(
+          'No data in AsyncStorage key',
+          spendValue,
+          saveValue,
+          shareValue,
+          logs,
+        );
+      }
+    } catch (error) {
+      console.error('Error fetching AsyncStorage', error);
+    }
+  };
+
+  storePaydaySettingsIsEnabled = async (enabled) => {
+    console.log('storePaydaySettingsIsEnabled go now!', enabled);
+    const payDayEnabled = enabled === true ? 'true' : 'false';
+    AsyncStorage.setItem('@Jars_payDayIsEnabled', payDayEnabled);
+    // AsyncStorage.setItem('@Jars_payDayAmount', amount);
+    this.storePaydaySettingsAmount(this.state.paydayAmount);
+  };
+
+  loadPaydaySettingsIsEnabled = async () => {
+    // console.log('loadPaydaySettings go now!');
+    try {
+      const isEnabled = await AsyncStorage.getItem('@Jars_payDayIsEnabled');
+      const isEnabledBoolean = isEnabled === 'true' ? true : false;
+      if (isEnabledBoolean !== null) {
+        console.log(
+          'Fetched data from AsyncStorage @Jars_payDayIsEnabled',
+          isEnabledBoolean,
+        );
+        this.setState({
+          paydayIsEnabled: isEnabledBoolean,
+        });
+      } else {
+        console.log('No data in AsyncStorage key', isEnabledBoolean);
+      }
+    } catch (error) {
+      console.error('Error fetching AsyncStorage', error);
+    }
+  };
+
+  storePaydaySettingsAmount = async (amount) => {
+    console.log('storePaydaySettingsAmount go now!', amount);
+    AsyncStorage.setItem('@Jars_payDayAmount', amount);
+  };
+
+  loadPaydaySettingsAmount = async () => {
+    // console.log('loadPaydaySettingsAmount go now!');
+    try {
+      const paydayStoredAmount = await AsyncStorage.getItem(
+        '@Jars_payDayAmount',
+      );
+      if (paydayStoredAmount !== null) {
+        console.log(
+          'Fetched data from AsyncStorage @Jars_payDayAmount',
+          paydayStoredAmount,
+        );
+        this.setState({
+          paydayAmount: paydayStoredAmount,
+        });
+      } else {
+        console.log('No data in AsyncStorage key', paydayStoredAmount);
+      }
+    } catch (error) {
+      console.error('Error fetching AsyncStorage', error);
+    }
   };
 
   setJarPercent = (value, jar) => {
     // console.log('Value passed from setJarPercent = ', value);
     // console.log('jar passed from setJarPercent = ', jar);
-    let val = Math.round(value);
-    let jarName = jar['current'];
-    // console.log('jarName = ', jarName);
-
     const {
       spendJarPercent,
       saveJarPercent,
@@ -100,8 +186,27 @@ class App extends Component {
       maxShareJarPercent,
     } = this.state;
 
+    let val = Math.round(value);
+    let jarName = jar['current'];
+    let total = spendJarPercent + saveJarPercent + shareJarPercent;
+    // console.log('jarName = ', jarName);
+
+    // if (total !== 100) {
+    //   this.setState({
+    //     // showJarPercentSuccess: false,
+    //     showJarPercentCheck: true,
+    //   });
+    // } else {
+    //   this.setState({
+    //     // showJarPercentSuccess: true,
+    //     showJarPercentCheck: false,
+    //   });
+    // }
+
     this.setState({
       showJarPercentError: false,
+      showJarPercentCheck: true,
+      showJarPercentSuccess: false,
     });
 
     switch (jarName) {
@@ -149,6 +254,8 @@ class App extends Component {
     if (total !== 100) {
       this.setState({
         showJarPercentError: true,
+        showJarPercentSuccess: false,
+        showJarPercentCheck: false,
         spendJarPercent: 50,
         saveJarPercent: 40,
         shareJarPercent: 10,
@@ -156,24 +263,30 @@ class App extends Component {
     } else {
       this.setState({
         showJarPercentError: false,
+        showJarPercentSuccess: true,
+        showJarPercentCheck: false,
       });
     }
   };
 
   setPaydayIsEnabled = () => {
     // console.log('setPaydayIsEnabled hook go now!');
+    const {paydayIsEnabled} = this.state;
+    this.storePaydaySettingsIsEnabled(!paydayIsEnabled);
+    // console.log('payDayIsEnabled from state = ', !paydayIsEnabled);
     this.setState({
-      paydayIsEnabled: !this.state.paydayIsEnabled,
+      paydayIsEnabled: !paydayIsEnabled,
     });
   };
 
   setPaydayAmount = (text) => {
     // console.log('setPaydayAmount func go now!', text);
+    this.storePaydaySettingsAmount(text);
     this.setState({paydayAmount: text});
   };
 
   setPaydayOfTheWeek = (day) => {
-    console.log('setPaydayOfTheWeek go now!', day);
+    // console.log('setPaydayOfTheWeek go now!', day);
     this.setState({isSelectedPayday: day});
     switch (day) {
       case 'Sunday':
@@ -409,9 +522,7 @@ class App extends Component {
           logData: logCopy,
           filteredLogData: logCopy,
         });
-
-        // this.saveJarValue(spendJarValue);
-
+        this.storeJarValue(activeJar, spendJarNewValue, logCopy);
         break;
       case 'save':
         log = {
@@ -437,6 +548,7 @@ class App extends Component {
           logData: logCopy,
           filteredLogData: logCopy,
         });
+        this.storeJarValue(activeJar, saveJarNewValue, logCopy);
         break;
       case 'share':
         log = {
@@ -462,6 +574,7 @@ class App extends Component {
           logData: logCopy,
           filteredLogData: logCopy,
         });
+        this.storeJarValue(activeJar, shareJarNewValue, logCopy);
         break;
     }
 
@@ -504,6 +617,7 @@ class App extends Component {
 
   render() {
     // console.log('App props, ', this.props);
+    // console.log('payDayPickerTime = ', this.state.payDayPickerTime);
     const {
       activeJar,
       spendJarPercent,
@@ -513,6 +627,8 @@ class App extends Component {
       maxSaveJarPercent,
       maxShareJarPercent,
       showJarPercentError,
+      showJarPercentCheck,
+      showJarPercentSuccess,
       paydayIsEnabled,
       paydayAmount,
       isSelectedPaydaySunday,
@@ -560,7 +676,6 @@ class App extends Component {
                 handleLogDataFilter={this.onFilterLogData}
                 handlePaydayIsEnabled={this.setPaydayIsEnabled}
                 handlePaydayAmount={this.setPaydayAmount}
-                handleJarPercentage={this.setJarPercent}
                 handleActiveJar={this.setActiveJar}
                 spendJarPercent={spendJarPercent}
                 saveJarPercent={saveJarPercent}
@@ -575,6 +690,8 @@ class App extends Component {
                 maxSaveJarPercent={maxSaveJarPercent}
                 maxShareJarPercent={maxShareJarPercent}
                 showJarPercentError={showJarPercentError}
+                showJarPercentSuccess={showJarPercentSuccess}
+                showJarPercentCheck={showJarPercentCheck}
                 isSelectedPaydaySunday={isSelectedPaydaySunday}
                 isSelectedPaydayMonday={isSelectedPaydayMonday}
                 isSelectedPaydayTuesday={isSelectedPaydayTuesday}

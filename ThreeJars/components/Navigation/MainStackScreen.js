@@ -12,6 +12,9 @@ const Stack = createStackNavigator();
 
 const MainStackScreen = (props) => {
   const {
+    spendJarValue,
+    saveJarValue,
+    shareJarValue,
     spendJarPercent,
     saveJarPercent,
     shareJarPercent,
@@ -19,6 +22,8 @@ const MainStackScreen = (props) => {
     maxSaveJarPercent,
     maxShareJarPercent,
     showJarPercentError,
+    showJarPercentSuccess,
+    showJarPercentCheck,
     paydayIsEnabled,
     paydayAmount,
     isSelectedPaydaySunday,
@@ -29,6 +34,8 @@ const MainStackScreen = (props) => {
     isSelectedPaydayFriday,
     isSelectedPaydaySaturday,
     isSelectedPayday,
+    isDisabledMinusButton,
+    isDisabledAddButton,
     paydayTime,
     payDayPickerTime,
     logData,
@@ -40,7 +47,9 @@ const MainStackScreen = (props) => {
     handlePaydayAmount,
     handleJarPercentage,
     handleVerifyJarPercentage,
+    handleActiveJar,
   } = props;
+
   return (
     <Stack.Navigator initialRouteName="Jars">
       <Stack.Screen
@@ -65,14 +74,22 @@ const MainStackScreen = (props) => {
       </Stack.Screen>
       <Stack.Screen
         name="Jars"
-        component={JarsScreen}
+        // component={JarsScreen}
         options={{
           headerShown: false,
-        }}
-      />
-      {/* <Stack.Screen name="JarAdd" options={{headerShown: false}}>
-            {(props) => <JarAdd />}
-          </Stack.Screen> */}
+        }}>
+        {(props) => (
+          <JarsScreen
+            {...props}
+            spendJarValue={spendJarValue}
+            saveJarValue={saveJarValue}
+            shareJarValue={shareJarValue}
+            isDisabledMinusButton={isDisabledMinusButton}
+            isDisabledAddButton={isDisabledAddButton}
+            handleActiveJar={handleActiveJar}
+          />
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="Settings"
         // component={SettingsScreen}
@@ -84,6 +101,7 @@ const MainStackScreen = (props) => {
             saveJarPercent={saveJarPercent}
             shareJarPercent={shareJarPercent}
             paydayIsEnabled={paydayIsEnabled}
+            showJarPercentCheck={showJarPercentCheck}
           />
         )}
       </Stack.Screen>
@@ -132,6 +150,8 @@ const MainStackScreen = (props) => {
             shareJarPercent={shareJarPercent}
             maxShareJarPercent={maxShareJarPercent}
             showJarPercentError={showJarPercentError}
+            showJarPercentSuccess={showJarPercentSuccess}
+            showJarPercentCheck={showJarPercentCheck}
           />
         )}
       </Stack.Screen>
@@ -139,6 +159,34 @@ const MainStackScreen = (props) => {
   );
 };
 
-MainStackScreen.propTypes = {};
+MainStackScreen.propTypes = {
+  spendJarPercent: PropTypes.number,
+  saveJarPercent: PropTypes.number,
+  shareJarPercent: PropTypes.number,
+  maxSpendJarPercent: PropTypes.number,
+  maxSaveJarPercent: PropTypes.number,
+  maxShareJarPercent: PropTypes.number,
+  paydayIsEnabled: PropTypes.bool,
+  isSelectedPaydaySunday: PropTypes.bool,
+  isSelectedPaydayMonday: PropTypes.bool,
+  isSelectedPaydayTuesday: PropTypes.bool,
+  isSelectedPaydayWednesday: PropTypes.bool,
+  isSelectedPaydayThursday: PropTypes.bool,
+  isSelectedPaydayFriday: PropTypes.bool,
+  isSelectedPaydaySaturday: PropTypes.bool,
+  paydayAmount: PropTypes.string,
+  isSelectedPayday: PropTypes.string,
+  paydayTime: PropTypes.string,
+  logDataFilter: PropTypes.string,
+  payDayPickerTime: PropTypes.date,
+  logData: PropTypes.array,
+  handleJarPercentage: PropTypes.func,
+  handleVerifyJarPercentage: PropTypes.func,
+  handlePaydayIsEnabled: PropTypes.func,
+  handlePaydayAmount: PropTypes.func,
+  handleLogDataFilter: PropTypes.func,
+  handlePaydayOfTheWeek: PropTypes.func,
+  handlePaydayTime: PropTypes.func,
+};
 
 export default MainStackScreen;

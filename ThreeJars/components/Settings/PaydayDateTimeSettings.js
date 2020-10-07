@@ -205,7 +205,7 @@ PaydayDateTimeSettings.propTypes = {
   isSelectedPaydaySaturday: PropTypes.bool,
   handlePaydayOfTheWeek: PropTypes.func,
   handlePaydayTime: PropTypes.func,
-  payDayPickerTime: PropTypes.string,
+  payDayPickerTime: PropTypes.object,
 };
 
 export default PaydayDateTimeSettings;

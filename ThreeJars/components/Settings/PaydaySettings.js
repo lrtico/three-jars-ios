@@ -56,9 +56,7 @@ const PaydaySettings = (props) => {
             onPress={() => navigation.navigate('ChoosePayday')}>
             <Text style={styles.row__title}>Day/time</Text>
             <Text style={[styles.row__value, styles.row__icon]}>
-              {paydayIsEnabled
-                ? `${isSelectedPayday}, ${paydayTime}`
-                : 'Click to select a day and time'}
+              {paydayTime}
             </Text>
             <Icon
               name="arrow-forward-ios"

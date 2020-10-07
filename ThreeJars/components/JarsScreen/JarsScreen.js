@@ -10,8 +10,15 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
-const JarsScreen = ({navigation}) => {
-  console.log('Jarsscreen props, ', navigation);
+const JarsScreen = (props) => {
+  // console.log('Jarsscreen props, ', props);
+  const {
+    spendJarValue,
+    saveJarValue,
+    shareJarValue,
+    handleActiveJar,
+    navigation,
+  } = props;
   return (
     <SafeAreaView style={styles.jarswrapper}>
       <View style={styles.jarswrapper}>
@@ -31,18 +38,31 @@ const JarsScreen = ({navigation}) => {
               name="add"
               size={45}
               style={[styles.iconcontrol, styles.jar__control]}
+              onPress={() => handleActiveJar(props, 'spend', 'add')}
             />
             <Icon
               name="remove"
               size={45}
               style={[styles.iconcontrol, styles.jar__control]}
-              onPress={() => navigation.navigate('JarAdd')}
+              onPress={() => handleActiveJar(props, 'spend', 'minus')}
             />
           </View>
           <View style={styles.jar__amount}>
             <View style={styles.jar__amount__wrap}>
-              <Text style={styles.jar__amount__dollarsign}>$</Text>
-              <Text style={styles.jar__amount__dollars}>3.75</Text>
+              <Text
+                style={
+                  spendJarValue < 0
+                    ? [
+                        styles.jar__amount__dollarsign,
+                        styles.jar__amount__dollarsignnegative,
+                      ]
+                    : styles.jar__amount__dollarsign
+                }>
+                {spendJarValue < 0 ? '-$' : '$'}
+              </Text>
+              <Text style={styles.jar__amount__dollars}>
+                {spendJarValue < 0 ? spendJarValue * -1 : spendJarValue}
+              </Text>
             </View>
           </View>
           <Text style={styles.jar__label}>Spend</Text>
@@ -53,17 +73,31 @@ const JarsScreen = ({navigation}) => {
               name="add"
               size={45}
               style={[styles.iconcontrol, styles.jar__control]}
+              onPress={() => handleActiveJar(props, 'save', 'add')}
             />
             <Icon
               name="remove"
               size={45}
               style={[styles.iconcontrol, styles.jar__control]}
+              onPress={() => handleActiveJar(props, 'save', 'minus')}
             />
           </View>
           <View style={styles.jar__amount}>
             <View style={styles.jar__amount__wrap}>
-              <Text style={styles.jar__amount__dollarsign}>$</Text>
-              <Text style={styles.jar__amount__dollars}>2</Text>
+              <Text
+                style={
+                  saveJarValue < 0
+                    ? [
+                        styles.jar__amount__dollarsign,
+                        styles.jar__amount__dollarsignnegative,
+                      ]
+                    : styles.jar__amount__dollarsign
+                }>
+                {saveJarValue < 0 ? '-$' : '$'}
+              </Text>
+              <Text style={styles.jar__amount__dollars}>
+                {saveJarValue < 0 ? saveJarValue * -1 : saveJarValue}
+              </Text>
             </View>
           </View>
           <Text style={styles.jar__label}>Save</Text>
@@ -74,17 +108,31 @@ const JarsScreen = ({navigation}) => {
               name="add"
               size={45}
               style={[styles.iconcontrol, styles.jar__control]}
+              onPress={() => handleActiveJar(props, 'share', 'add')}
             />
             <Icon
               name="remove"
               size={45}
               style={[styles.iconcontrol, styles.jar__control]}
+              onPress={() => handleActiveJar(props, 'share', 'minus')}
             />
           </View>
           <View style={styles.jar__amount}>
             <View style={styles.jar__amount__wrap}>
-              <Text style={styles.jar__amount__dollarsign}>$</Text>
-              <Text style={styles.jar__amount__dollars}>1.25</Text>
+              <Text
+                style={
+                  shareJarValue < 0
+                    ? [
+                        styles.jar__amount__dollarsign,
+                        styles.jar__amount__dollarsignnegative,
+                      ]
+                    : styles.jar__amount__dollarsign
+                }>
+                {shareJarValue < 0 ? '-$' : '$'}
+              </Text>
+              <Text style={styles.jar__amount__dollars}>
+                {shareJarValue < 0 ? shareJarValue * -1 : shareJarValue}
+              </Text>
             </View>
           </View>
           <Text style={styles.jar__label}>Share</Text>
@@ -180,6 +228,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: -21,
     top: 21,
+  },
+  jar__amount__dollarsignnegative: {
+    left: -33,
   },
   jar__amount__dollars: {
     color: 'white',

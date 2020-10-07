@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {SafeAreaView, StyleSheet, View, Text, Pressable} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {TextInput} from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
-const JarAdd = (props) => {
-  // console.log('JarAdd props = ', props);
+const JarMinus = (props) => {
+  // console.log('JarMinus props = ', props);
   const {
     activeJar,
     spendJarOldValue,
@@ -18,12 +18,13 @@ const JarAdd = (props) => {
     shareJarOldValue,
     shareJarNewValue,
     shareJarNote,
-    isDisabledAddButton,
+    isDisabledMinusButton,
     handleJarNote,
     handleJarValue,
     handleIncomingJarValue,
     handleCancelJarValue,
   } = props;
+
   return (
     <SafeAreaView style={styles.jarswrapper}>
       <View
@@ -78,10 +79,10 @@ const JarAdd = (props) => {
             style={styles.amount}
             onChangeText={(text) =>
               activeJar === 'spend'
-                ? handleIncomingJarValue(text, 'spend', 'add')
+                ? handleIncomingJarValue(text, 'spend', 'minus')
                 : activeJar === 'save'
-                ? handleIncomingJarValue(text, 'save', 'add')
-                : handleIncomingJarValue(text, 'share', 'add')
+                ? handleIncomingJarValue(text, 'save', 'minus')
+                : handleIncomingJarValue(text, 'share', 'minus')
             }
             placeholder={'$'}
             clearButtonMode={'never'}
@@ -90,7 +91,7 @@ const JarAdd = (props) => {
             maxLength={6}
           />
           <Pressable
-            disabled={isDisabledAddButton}
+            disabled={isDisabledMinusButton}
             onPress={
               activeJar === 'spend'
                 ? () => handleJarValue(props, 'spend')
@@ -98,7 +99,9 @@ const JarAdd = (props) => {
                 ? () => handleJarValue(props, 'save')
                 : () => handleJarValue(props, 'share')
             }
-            style={isDisabledAddButton ? styles.buttondisabled : styles.button}>
+            style={
+              isDisabledMinusButton ? styles.buttondisabled : styles.button
+            }>
             <Text
               style={
                 activeJar === 'spend'
@@ -107,7 +110,7 @@ const JarAdd = (props) => {
                   ? [styles.button__text, {color: '#CF2B7A'}]
                   : [styles.button__text, {color: '#24C3E3'}]
               }>
-              Add
+              Minus
             </Text>
           </Pressable>
           <Text
@@ -229,7 +232,6 @@ const styles = StyleSheet.create({
     width: 120,
   },
   button__text: {
-    color: '#4AA34E',
     fontFamily: 'Barlow-Regular',
     fontSize: 24,
     fontWeight: 'bold',
@@ -241,7 +243,7 @@ const styles = StyleSheet.create({
   },
 });
 
-JarAdd.propTypes = {
+JarMinus.propTypes = {
   activeJar: PropTypes.string,
   spendJarNote: PropTypes.string,
   spendJarOldValue: PropTypes.number,
@@ -259,4 +261,4 @@ JarAdd.propTypes = {
   handleCancelJarValue: PropTypes.func,
 };
 
-export default JarAdd;
+export default JarMinus;

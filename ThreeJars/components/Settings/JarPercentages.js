@@ -14,9 +14,11 @@ const JarPercentages = (props) => {
     shareJarPercent,
     maxShareJarPercent,
     showJarPercentError,
+    showJarPercentSuccess,
+    showJarPercentCheck,
     handleVerifyJarPercentage,
   } = props;
-  // console.log('JarPercentages props = ', props);
+  console.log('JarPercentages props = ', props);
   const spendJarRef = useRef('spendJar');
   const saveJarRef = useRef('saveJar');
   const shareJarRef = useRef('shareJar');
@@ -78,7 +80,17 @@ const JarPercentages = (props) => {
               {backgroundColor: pressed ? '#029326' : '#34C759'},
               styles.button__wrap,
             ]}>
-            <Text style={styles.button__text}>Apply</Text>
+            <Text style={styles.button__text}>
+              {showJarPercentCheck === true && showJarPercentError === false
+                ? 'Check my maths'
+                : showJarPercentError === false &&
+                  showJarPercentSuccess === true &&
+                  showJarPercentCheck === false
+                ? 'Success!'
+                : showJarPercentError === true
+                ? `That's ok. Try again!`
+                : 'Apply'}
+            </Text>
           </Pressable>
         </View>
         {showJarPercentError && (
@@ -88,14 +100,26 @@ const JarPercentages = (props) => {
                 fontWeight: 'bold',
                 marginBottom: 9,
               }}>
-              The percents you choose didn't equal 100.
+              😪 The percents didn't equal 100.
             </Text>
             <Text style={{marginBottom: 9}}>
-              We've reset the values for you. Please try changing the percents
-              to equal 100 and click apply again. :{')'}
+              But that's ok! We've reset the values for you. Please try changing
+              the percents again. When you're done click the button to check the
+              math. :{')'}
             </Text>
             <Text>
               {'('}For example - 55%, 40%, 5%.{')'}
+            </Text>
+          </View>
+        )}
+        {showJarPercentSuccess && (
+          <View style={styles.percentage__error}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                marginBottom: 9,
+              }}>
+              🎉 High fives! Your values total 100%.
             </Text>
           </View>
         )}

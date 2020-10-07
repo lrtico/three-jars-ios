@@ -40,7 +40,7 @@ const DATA = [
 const Item = ({jar, date, details, amount, total}) => (
   <View style={[styles.row, styles.item__row]}>
     <View style={styles.details}>
-      <Text style={styles.jar}>{jar}</Text>
+      <Text style={styles.jar}>{jar} jar</Text>
       <Text style={styles.date}>{date}</Text>
       <Text style={styles.details}>{details}</Text>
     </View>
@@ -91,7 +91,7 @@ const LogHistory = (props) => {
       <FlatList
         data={logData}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         ItemSeparatorComponent={renderSeparator}
       />
     </View>
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
   },
   jar: {
     fontWeight: 'bold',
+    textTransform: 'capitalize',
   },
   filter: {
     backgroundColor: 'rgba(118,118,128,.12)',
@@ -149,6 +150,12 @@ const styles = StyleSheet.create({
   },
 });
 
-LogHistory.propTypes = {};
+LogHistory.propTypes = {
+  jar: PropTypes.string,
+  date: PropTypes.string,
+  details: PropTypes.string,
+  amount: PropTypes.number,
+  total: PropTypes.number,
+};
 
 export default LogHistory;

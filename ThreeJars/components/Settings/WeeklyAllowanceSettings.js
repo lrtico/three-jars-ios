@@ -4,13 +4,14 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 const WeeklyAllowanceSettings = (props) => {
-  // console.log('WeeklyAllowanceSettings props = ', props);
+  console.log('WeeklyAllowanceSettings props = ', props);
   const {
     navigation,
     spendJarPercent,
     saveJarPercent,
     shareJarPercent,
     paydayIsEnabled,
+    showJarPercentCheck,
   } = props;
   return (
     <View style={styles.container}>
@@ -38,7 +39,9 @@ const WeeklyAllowanceSettings = (props) => {
             onPress={() => navigation.navigate('JarPercentages')}>
             <Text style={styles.row__title}>Jar Percentages</Text>
             <Text style={styles.row__value}>
-              {`${spendJarPercent} / ${saveJarPercent} / ${shareJarPercent}`}
+              {showJarPercentCheck === true
+                ? `Percent doesn't = 100`
+                : `${spendJarPercent} / ${saveJarPercent} / ${shareJarPercent}`}
             </Text>
             <Icon
               name="arrow-forward-ios"
