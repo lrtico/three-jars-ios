@@ -178,7 +178,7 @@ MainStackScreen.propTypes = {
   isSelectedPayday: PropTypes.string,
   paydayTime: PropTypes.string,
   logDataFilter: PropTypes.string,
-  payDayPickerTime: PropTypes.date,
+  payDayPickerTime: PropTypes.object,
   logData: PropTypes.array,
   handleJarPercentage: PropTypes.func,
   handleVerifyJarPercentage: PropTypes.func,
