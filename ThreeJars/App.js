@@ -33,7 +33,7 @@ class App extends Component {
     isSelectedPaydayFriday: false,
     isSelectedPaydaySaturday: true,
     paydayTime: '12:00 PM',
-    payDayPickerTime: new Date(),
+    payDayPickerTime: Date(),
     logDataFilter: '',
     logData: [],
     filteredLogData: [],
@@ -63,6 +63,9 @@ class App extends Component {
     this.loadJarValue();
     this.loadPaydaySettingsIsEnabled();
     this.loadPaydaySettingsAmount();
+    this.loadPaydaySettingsTime();
+    this.loadPaydaySettingsDay();
+    this.loadJarPercent();
   }
 
   storeJarValue = async (jar, value, logs) => {
@@ -174,34 +177,134 @@ class App extends Component {
     }
   };
 
+  storePaydaySettingsTime = async (time, date) => {
+    console.log('storePaydaySettingsTime go now!', time, date);
+    AsyncStorage.setItem('@Jars_paydayTime', time);
+    AsyncStorage.setItem('@Jars_paydayDate', date);
+  };
+
+  loadPaydaySettingsTime = async () => {
+    // console.log('loadPaydaySettingsTime go now!');
+    try {
+      const paydayStoredTime = await AsyncStorage.getItem('@Jars_paydayTime');
+      const paydayStoredDate = await AsyncStorage.getItem('@Jars_paydayDate');
+      if (paydayStoredTime !== null) {
+        console.log(
+          'Fetched data from AsyncStorage @Jars_paydayTime',
+          paydayStoredTime,
+          paydayStoredDate,
+        );
+        this.setState({
+          paydayTime: paydayStoredTime,
+        });
+        if (paydayStoredDate === null) {
+          // console.log(
+          //   'loadPaydaySettingsTime date = null, so date = ',
+          //   new Date(),
+          // );
+          this.setState({payDayPickerTime: new Date()});
+        } else {
+          const parsedDate = paydayStoredDate.replace(/"/g, '');
+          // console.log('stored payday parsedDate = ', parsedDate);
+
+          const date = new Date(parsedDate);
+          // console.log('stored payday date = ', date);
+          // console.log(
+          //   'loadPaydaySettingsTime string date converted to date object = ',
+          //   new Date(date),
+          // );
+          this.setState({payDayPickerTime: date});
+        }
+      } else {
+        console.log('No data in AsyncStorage key', paydayStoredTime);
+      }
+    } catch (error) {
+      console.error('Error fetching AsyncStorage', error);
+    }
+  };
+
+  storePaydaySettingsDay = async (day) => {
+    // console.log('storePaydaySettingsDay go now!', day);
+    AsyncStorage.setItem('@Jars_paydayDay', day);
+  };
+
+  loadPaydaySettingsDay = async () => {
+    console.log('loadPaydaySettingsDay go now!');
+    try {
+      const paydayStoredDay = await AsyncStorage.getItem('@Jars_paydayDay');
+      if (paydayStoredDay !== null) {
+        console.log(
+          'Fetched data from AsyncStorage @Jars_paydayDay',
+          paydayStoredDay,
+        );
+        this.setState({
+          isSelectedPayday: paydayStoredDay,
+        });
+      } else {
+        console.log(
+          'No data in AsyncStorage @Jars_paydayDay key',
+          paydayStoredDay,
+        );
+      }
+    } catch (error) {
+      console.error('Error fetching AsyncStorage @Jars_paydayDay key', error);
+    }
+  };
+
+  storeJarPercent = async () => {
+    const {spendJarPercent, saveJarPercent, shareJarPercent} = this.state;
+
+    const spend = spendJarPercent.toString();
+    const save = saveJarPercent.toString();
+    const share = shareJarPercent.toString();
+    console.log('storeJarPercent go now!', spend, save, share);
+
+    AsyncStorage.setItem('@Jars_spendJarPercent', spend);
+    AsyncStorage.setItem('@Jars_saveJarPercent', save);
+    AsyncStorage.setItem('@Jars_shareJarPercent', share);
+  };
+
+  loadJarPercent = async () => {
+    // console.log('readJarValue go now!');
+    try {
+      const spendPercent = await AsyncStorage.getItem('@Jars_spendJarPercent');
+      const savePercent = await AsyncStorage.getItem('@Jars_saveJarPercent');
+      const sharePercent = await AsyncStorage.getItem('@Jars_shareJarPercent');
+
+      if (spendPercent !== null) {
+        const spendVal = parseFloat(spendPercent);
+        const saveVal = parseFloat(savePercent);
+        const shareVal = parseFloat(sharePercent);
+        console.log(
+          'Fetched data from AsyncStorage',
+          spendVal,
+          saveVal,
+          shareVal,
+        );
+        this.setState({
+          spendJarPercent: spendVal,
+          saveJarPercent: saveVal,
+          shareJarPercent: shareVal,
+        });
+      } else {
+        console.log(
+          'No data in AsyncStorage @Jars_spendJarPercent key',
+          spendPercent,
+          savePercent,
+          sharePercent,
+        );
+      }
+    } catch (error) {
+      console.error('Error fetching AsyncStorage @Jars_spendJarPercent', error);
+    }
+  };
+
   setJarPercent = (value, jar) => {
     // console.log('Value passed from setJarPercent = ', value);
     // console.log('jar passed from setJarPercent = ', jar);
-    const {
-      spendJarPercent,
-      saveJarPercent,
-      shareJarPercent,
-      maxSpendJarPercent,
-      maxSaveJarPercent,
-      maxShareJarPercent,
-    } = this.state;
 
     let val = Math.round(value);
     let jarName = jar['current'];
-    let total = spendJarPercent + saveJarPercent + shareJarPercent;
-    // console.log('jarName = ', jarName);
-
-    // if (total !== 100) {
-    //   this.setState({
-    //     // showJarPercentSuccess: false,
-    //     showJarPercentCheck: true,
-    //   });
-    // } else {
-    //   this.setState({
-    //     // showJarPercentSuccess: true,
-    //     showJarPercentCheck: false,
-    //   });
-    // }
 
     this.setState({
       showJarPercentError: false,
@@ -267,6 +370,7 @@ class App extends Component {
         showJarPercentCheck: false,
       });
     }
+    this.storeJarPercent();
   };
 
   setPaydayIsEnabled = () => {
@@ -367,6 +471,7 @@ class App extends Component {
         });
         break;
     }
+    this.storePaydaySettingsDay(day);
   };
 
   onFilterLogData = (text) => {
@@ -389,13 +494,17 @@ class App extends Component {
   };
 
   setPaydayTime = (event, selectedDate) => {
-    console.log('time picker returns, ', selectedDate);
+    // console.log('time picker returns, ', selectedDate);
     let selectedTime = selectedDate.toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
     });
-    console.log('time picker returns, ', selectedTime);
+    // console.log('time picker returns, ', selectedTime);
     this.setState({paydayTime: selectedTime, payDayPickerTime: selectedDate});
+
+    const paydayDateStringify = JSON.stringify(selectedDate);
+    // console.log('setPayTime date sent to AsyncStorage = ', paydayDateStringify);
+    this.storePaydaySettingsTime(selectedTime, paydayDateStringify);
   };
 
   setActiveJar = (props, jar, math) => {
