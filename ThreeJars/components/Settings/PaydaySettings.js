@@ -20,14 +20,16 @@ const PaydaySettings = (props) => {
     paydayAmount,
     handlePaydayAmount,
     isSelectedPayday,
+    isDisabledPaydayManually,
     paydayTime,
+    handlePayManually,
   } = props;
 
   return (
     <View style={styles.container}>
       <View style={styles.section}>
         <View style={[styles.row, styles.rowBorderBottom]}>
-          <Text style={styles.row__title}>Enable Payday</Text>
+          <Text style={styles.row__title}>Enable Automatic Payday</Text>
           <Switch
             trackColor={{false: '#767577', true: '#34C759'}}
             thumbColor={paydayIsEnabled ? 'white' : '#f4f3f4'}
@@ -67,6 +69,32 @@ const PaydaySettings = (props) => {
           </Pressable>
         </View>
       </View>
+      <View style={styles.button__row}>
+        <Pressable
+          onPress={handlePayManually}
+          disabled={isDisabledPaydayManually === true ? true : false}
+          style={
+            isDisabledPaydayManually === true
+              ? [styles.button__disabled, styles.button__wrap]
+              : ({pressed}) => [
+                  {backgroundColor: pressed ? '#029326' : '#34C759'},
+                  styles.button__wrap,
+                ]
+          }>
+          <Text style={styles.button__text}>Pay manually now</Text>
+        </Pressable>
+      </View>
+      {isDisabledPaydayManually && (
+        <View style={{marginLeft: 60, marginRight: 60}}>
+          <Text
+            style={{
+              marginBottom: 9,
+              marginTop: 36,
+            }}>
+            😋 Nice try! You've already been paid this week.
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -115,12 +143,38 @@ const styles = StyleSheet.create({
   textinput: {
     fontSize: 18,
   },
+  button__row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 72,
+  },
+  button__wrap: {
+    // backgroundColor: '#34C759',
+    borderRadius: 9,
+    flexDirection: 'row',
+    flexGrow: 0,
+    flexShrink: 1,
+    height: 45,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 300,
+  },
+  button__disabled: {
+    backgroundColor: 'gray',
+  },
+  button__text: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+    padding: 9,
+  },
 });
 
 PaydaySettings.propTypes = {
   navigation: PropTypes.object,
   paydayIsEnabled: PropTypes.bool,
   handlePaydayIsEnabled: PropTypes.func,
+  isDisabledPaydayManually: PropTypes.bool,
 };
 
 export default PaydaySettings;

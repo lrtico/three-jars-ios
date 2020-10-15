@@ -36,6 +36,7 @@ const MainStackScreen = (props) => {
     isSelectedPayday,
     isDisabledMinusButton,
     isDisabledAddButton,
+    isDisabledPaydayManually,
     paydayTime,
     payDayPickerTime,
     logData,
@@ -48,7 +49,10 @@ const MainStackScreen = (props) => {
     handleJarPercentage,
     handleVerifyJarPercentage,
     handleActiveJar,
+    handlePayManually,
   } = props;
+
+  // console.log('MainStackScreen props = ', props);
 
   return (
     <Stack.Navigator initialRouteName="Jars">
@@ -130,7 +134,9 @@ const MainStackScreen = (props) => {
             paydayAmount={paydayAmount}
             handlePaydayAmount={handlePaydayAmount}
             isSelectedPayday={isSelectedPayday}
+            isDisabledPaydayManually={isDisabledPaydayManually}
             paydayTime={paydayTime}
+            handlePayManually={handlePayManually}
           />
         )}
       </Stack.Screen>

@@ -23,6 +23,7 @@ class App extends Component {
     showJarPercentSuccess: true,
     showJarPercentCheck: false,
     paydayIsEnabled: true,
+    isDisabledPaydayManually: false,
     paydayAmount: '5',
     isSelectedPayday: 'Saturday',
     isSelectedPaydaySunday: false,
@@ -581,16 +582,13 @@ class App extends Component {
   setJarValue = (props, jar) => {
     const {
       activeJar,
-      spendJarValue,
       spendJarIncomingValue,
       spendJarNewValue,
       spendJarNote,
-      saveJarValue,
       saveJarIncomingValue,
       saveJarNewValue,
       saveJarNote,
       shareJarValue,
-      shareJarIncomingValue,
       shareJarNewValue,
       shareJarNote,
       logData,
@@ -724,6 +722,120 @@ class App extends Component {
     props.navigation.goBack();
   };
 
+  setPaydayManually = () => {
+    const {
+      spendJarValue,
+      saveJarValue,
+      shareJarValue,
+      logData,
+      paydayAmount,
+      spendJarPercent,
+      saveJarPercent,
+      shareJarPercent,
+    } = this.state;
+
+    const getDate = () => {
+      const date = new Date().toDateString();
+      return date;
+    };
+
+    console.log(
+      `
+        setPaydayManually values to update:
+        --------------------------------------
+        Spend jar new total: ${spendJarValue} + ${
+        paydayAmount * (spendJarPercent / 100)
+      }
+        Save jar new total: ${saveJarValue} + ${
+        paydayAmount * (saveJarPercent / 100)
+      }
+        Share jar new total: ${shareJarValue} + ${
+        paydayAmount * (shareJarPercent / 100)
+      }
+        Log spend jar = {
+          id: ${logData.length + 1},
+          jar: 'spend',
+          date: ${getDate()},
+          details: 'Weekly chores',
+          amount: ${paydayAmount * (spendJarPercent / 100)},
+          new total: ${spendJarValue} + ${
+        paydayAmount * (spendJarPercent / 100)
+      },
+        };
+        Log save jar = {
+          id: ${logData.length + 2},
+          jar: 'save',
+          date: ${getDate()},
+          details: 'Weekly chores',
+          amount: ${paydayAmount * (saveJarPercent / 100)},
+          new total: ${saveJarValue} + ${paydayAmount * (saveJarPercent / 100)},
+        };
+        Log share jar = {
+          id: ${logData.length + 3},
+          jar: 'share',
+          date: ${getDate()},
+          details: 'Weekly chores',
+          amount: ${paydayAmount * (shareJarPercent / 100)},
+          new total: ${shareJarValue} + ${
+        paydayAmount * (shareJarPercent / 100)
+      },
+        };
+      `,
+    );
+
+    // Update spend, save, and share jar values
+    let spendJarNewTotal =
+      spendJarValue + paydayAmount * (spendJarPercent / 100);
+    let saveJarNewTotal = saveJarValue + paydayAmount * (saveJarPercent / 100);
+    let shareJarNewTotal =
+      shareJarValue + paydayAmount * (shareJarPercent / 100);
+
+    let logCopy = [];
+
+    let spendlog = {
+      id: logData.length + 1,
+      jar: 'spend',
+      date: getDate(),
+      details: 'Weekly chores',
+      amount: paydayAmount * (spendJarPercent / 100),
+      total: spendJarNewTotal,
+    };
+    logCopy = [...logData, spendlog];
+    this.storeJarValue('spend', spendJarNewTotal, logCopy);
+
+    let savelog = {
+      id: logData.length + 2,
+      jar: 'save',
+      date: getDate(),
+      details: 'Weekly chores',
+      amount: paydayAmount * (saveJarPercent / 100),
+      total: saveJarNewTotal,
+    };
+    logCopy = [...logCopy, savelog];
+    this.storeJarValue('save', saveJarNewTotal, logCopy);
+
+    let sharelog = {
+      id: logData.length + 3,
+      jar: 'share',
+      date: getDate(),
+      details: 'Weekly chores',
+      amount: paydayAmount * (shareJarPercent / 100),
+      total: shareJarNewTotal,
+    };
+    logCopy = [...logCopy, sharelog];
+    this.storeJarValue('share', shareJarNewTotal, logCopy);
+
+    this.setState({
+      spendJarValue: spendJarNewTotal,
+      saveJarValue: saveJarNewTotal,
+      shareJarValue: shareJarNewTotal,
+      logData: logCopy,
+      filteredLogData: logCopy,
+    });
+
+    // console.log('Post manual payday call state = ', this.state);
+  };
+
   render() {
     // console.log('App props, ', this.props);
     // console.log('payDayPickerTime = ', this.state.payDayPickerTime);
@@ -766,6 +878,7 @@ class App extends Component {
       shareJarNewValue,
       isDisabledMinusButton,
       isDisabledAddButton,
+      isDisabledPaydayManually,
     } = this.state;
     return (
       <NavigationContainer>
@@ -786,6 +899,7 @@ class App extends Component {
                 handlePaydayIsEnabled={this.setPaydayIsEnabled}
                 handlePaydayAmount={this.setPaydayAmount}
                 handleActiveJar={this.setActiveJar}
+                handlePayManually={this.setPaydayManually}
                 spendJarPercent={spendJarPercent}
                 saveJarPercent={saveJarPercent}
                 shareJarPercent={shareJarPercent}
@@ -809,6 +923,7 @@ class App extends Component {
                 isSelectedPaydayFriday={isSelectedPaydayFriday}
                 isSelectedPaydaySaturday={isSelectedPaydaySaturday}
                 paydayAmount={paydayAmount}
+                isDisabledPaydayManually={isDisabledPaydayManually}
                 spendJarValue={spendJarValue}
                 saveJarValue={saveJarValue}
                 shareJarValue={shareJarValue}
