@@ -5,27 +5,34 @@ import {
   View,
   Text,
   Pressable,
-  Button,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 const JarsScreen = (props) => {
-  // console.log('Jarsscreen props, ', props);
+  console.log('Jarsscreen props, ', props);
   const {
     spendJarValue,
     saveJarValue,
     shareJarValue,
     handleActiveJar,
     navigation,
+    childsInitials,
   } = props;
   return (
     <SafeAreaView style={styles.jarswrapper}>
       <View style={styles.jarswrapper}>
         <View style={styles.header}>
-          <View style={styles.header__circle}>
-            <Text style={styles.header__circle__name}>aj</Text>
-          </View>
+          {childsInitials === '' ? (
+            <Image
+              source={require('../../assets/bank-buddy-ios-icon-87-x-87.png')}
+            />
+          ) : (
+            <View style={styles.header__circle}>
+              <Text style={styles.header__circle__name}>{childsInitials}</Text>
+            </View>
+          )}
           <Pressable
             style={styles.header__menu}
             onPress={() => navigation.navigate('Settings')}>

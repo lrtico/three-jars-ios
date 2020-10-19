@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 const WeeklyAllowanceSettings = (props) => {
-  console.log('WeeklyAllowanceSettings props = ', props);
+  // console.log('WeeklyAllowanceSettings props = ', props);
   const {
     navigation,
     spendJarPercent,

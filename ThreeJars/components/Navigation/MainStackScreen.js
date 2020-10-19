@@ -41,6 +41,7 @@ const MainStackScreen = (props) => {
     payDayPickerTime,
     logData,
     logDataFilter,
+    childsInitials,
     handlePaydayOfTheWeek,
     handlePaydayTime,
     handleLogDataFilter,
@@ -50,6 +51,7 @@ const MainStackScreen = (props) => {
     handleVerifyJarPercentage,
     handleActiveJar,
     handlePayManually,
+    handleSettingChildInitials,
   } = props;
 
   // console.log('MainStackScreen props = ', props);
@@ -70,9 +72,9 @@ const MainStackScreen = (props) => {
             isSelectedPaydayThursday={isSelectedPaydayThursday}
             isSelectedPaydayFriday={isSelectedPaydayFriday}
             isSelectedPaydaySaturday={isSelectedPaydaySaturday}
+            payDayPickerTime={payDayPickerTime}
             handlePaydayOfTheWeek={handlePaydayOfTheWeek}
             handlePaydayTime={handlePaydayTime}
-            payDayPickerTime={payDayPickerTime}
           />
         )}
       </Stack.Screen>
@@ -91,6 +93,7 @@ const MainStackScreen = (props) => {
             isDisabledMinusButton={isDisabledMinusButton}
             isDisabledAddButton={isDisabledAddButton}
             handleActiveJar={handleActiveJar}
+            childsInitials={childsInitials}
           />
         )}
       </Stack.Screen>
@@ -106,6 +109,8 @@ const MainStackScreen = (props) => {
             shareJarPercent={shareJarPercent}
             paydayIsEnabled={paydayIsEnabled}
             showJarPercentCheck={showJarPercentCheck}
+            childsInitials={childsInitials}
+            handleSettingChildInitials={handleSettingChildInitials}
           />
         )}
       </Stack.Screen>

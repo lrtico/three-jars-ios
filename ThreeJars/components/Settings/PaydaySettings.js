@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 const PaydaySettings = (props) => {
-  console.log('PaydaySettings props = ', props);
+  // console.log('PaydaySettings props = ', props);
   const {
     navigation,
     paydayIsEnabled,
@@ -81,9 +81,13 @@ const PaydaySettings = (props) => {
                   styles.button__wrap,
                 ]
           }>
-          <Text style={styles.button__text}>Pay manually now</Text>
+          <Text style={styles.button__text}>Pay allowance manually</Text>
         </Pressable>
       </View>
+      <Text style={styles.row__description}>
+        Automatically add your saved percentages of the payday amount above to
+        each jar.
+      </Text>
       {isDisabledPaydayManually && (
         <View style={{marginLeft: 60, marginRight: 60}}>
           <Text
@@ -139,6 +143,16 @@ const styles = StyleSheet.create({
   },
   row__icon: {
     color: 'rgba(112,112,112,.5)',
+  },
+  row__description: {
+    color: 'rgba(112,112,112,.5)',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingLeft: 18,
+    paddingRight: 18,
+    paddingTop: 9,
+    textAlign: 'center',
+    width: 350,
   },
   textinput: {
     fontSize: 18,
