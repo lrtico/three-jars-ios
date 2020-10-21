@@ -25,9 +25,7 @@ const JarsScreen = (props) => {
       <View style={styles.jarswrapper}>
         <View style={styles.header}>
           {childsInitials === '' ? (
-            <Image
-              source={require('../../assets/bank-buddy-ios-icon-87-x-87.png')}
-            />
+            <Image source={require('../../assets/bb-icon-100-x-100.png')} />
           ) : (
             <View style={styles.header__circle}>
               <Text style={styles.header__circle__name}>{childsInitials}</Text>
