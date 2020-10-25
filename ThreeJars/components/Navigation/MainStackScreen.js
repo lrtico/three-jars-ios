@@ -54,7 +54,7 @@ const MainStackScreen = (props) => {
     handleSettingChildInitials,
   } = props;
 
-  // console.log('MainStackScreen props = ', props);
+  console.log('MainStackScreen props = ', props);
 
   return (
     <Stack.Navigator initialRouteName="Jars">
@@ -189,7 +189,7 @@ MainStackScreen.propTypes = {
   isSelectedPayday: PropTypes.string,
   paydayTime: PropTypes.string,
   logDataFilter: PropTypes.string,
-  payDayPickerTime: PropTypes.object,
+  // payDayPickerTime: PropTypes.object,
   logData: PropTypes.array,
   handleJarPercentage: PropTypes.func,
   handleVerifyJarPercentage: PropTypes.func,

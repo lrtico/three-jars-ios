@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 
 const ChildInitials = (props) => {
-  console.log('ChildInitials props = ', props);
+  // console.log('ChildInitials props = ', props);
   const {childsInitials, handleSettingChildInitials} = props;
   return (
     <View style={styles.container}>
@@ -15,7 +15,7 @@ const ChildInitials = (props) => {
             onChangeText={(text) => handleSettingChildInitials(text)}
             value={childsInitials}
             placeholder={'2 characters max'}
-            clearButtonMode={'while-editing'}
+            clearButtonMode={'never'}
             keyboardType={'default'}
             returnKeyType={'done'}
             maxLength={2}
@@ -107,5 +107,10 @@ const styles = StyleSheet.create({
     padding: 9,
   },
 });
+
+ChildInitials.propTypes = {
+  childsInitials: PropTypes.string,
+  handleSettingChildInitials: PropTypes.func,
+};
 
 export default ChildInitials;

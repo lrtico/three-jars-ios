@@ -30,6 +30,7 @@ const PaydayDateTimeSettings = (props) => {
     handlePaydayTime,
     payDayPickerTime,
   } = props;
+
   console.log('PaydayDateTimeSettings props = ', props);
 
   return (
@@ -205,7 +206,7 @@ PaydayDateTimeSettings.propTypes = {
   isSelectedPaydaySaturday: PropTypes.bool,
   handlePaydayOfTheWeek: PropTypes.func,
   handlePaydayTime: PropTypes.func,
-  payDayPickerTime: PropTypes.object,
+  // payDayPickerTime: PropTypes.object,
 };
 
 export default PaydayDateTimeSettings;

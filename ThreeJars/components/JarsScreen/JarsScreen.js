@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 const JarsScreen = (props) => {
-  console.log('Jarsscreen props, ', props);
+  // console.log('Jarsscreen props, ', props);
   const {
     spendJarValue,
     saveJarValue,
@@ -25,10 +25,14 @@ const JarsScreen = (props) => {
       <View style={styles.jarswrapper}>
         <View style={styles.header}>
           {childsInitials === '' ? (
-            <Image source={require('../../assets/bb-icon-100-x-100.png')} />
+            <Image
+              source={require('../../assets/bank-buddy-ios-icon-87-x-87.png')}
+            />
           ) : (
             <View style={styles.header__circle}>
-              <Text style={styles.header__circle__name}>{childsInitials}</Text>
+              <Text adjustsFontSizeToFit style={styles.header__circle__name}>
+                {childsInitials}
+              </Text>
             </View>
           )}
           <Pressable
@@ -45,12 +49,6 @@ const JarsScreen = (props) => {
               style={[styles.iconcontrol, styles.jar__control]}
               onPress={() => handleActiveJar(props, 'spend', 'add')}
             />
-            <Icon
-              name="remove"
-              size={45}
-              style={[styles.iconcontrol, styles.jar__control]}
-              onPress={() => handleActiveJar(props, 'spend', 'minus')}
-            />
           </View>
           <View style={styles.jar__amount}>
             <View style={styles.jar__amount__wrap}>
@@ -65,12 +63,29 @@ const JarsScreen = (props) => {
                 }>
                 {spendJarValue < 0 ? '-$' : '$'}
               </Text>
-              <Text style={styles.jar__amount__dollars}>
+              <Text
+                adjustsFontSizeToFit={true}
+                style={
+                  spendJarValue > 999
+                    ? [
+                        styles.jar__amount__dollars,
+                        styles.jar__amount__dollars__small,
+                      ]
+                    : styles.jar__amount__dollars
+                }>
                 {spendJarValue < 0 ? spendJarValue * -1 : spendJarValue}
               </Text>
             </View>
+            <Text style={styles.jar__label}>Spend</Text>
           </View>
-          <Text style={styles.jar__label}>Spend</Text>
+          <View style={styles.jar__controls}>
+            <Icon
+              name="remove"
+              size={45}
+              style={[styles.iconcontrol, styles.jar__control]}
+              onPress={() => handleActiveJar(props, 'spend', 'minus')}
+            />
+          </View>
         </View>
         <View style={[styles.jar, styles.jarsave]}>
           <View style={styles.jar__controls}>
@@ -80,16 +95,11 @@ const JarsScreen = (props) => {
               style={[styles.iconcontrol, styles.jar__control]}
               onPress={() => handleActiveJar(props, 'save', 'add')}
             />
-            <Icon
-              name="remove"
-              size={45}
-              style={[styles.iconcontrol, styles.jar__control]}
-              onPress={() => handleActiveJar(props, 'save', 'minus')}
-            />
           </View>
           <View style={styles.jar__amount}>
             <View style={styles.jar__amount__wrap}>
               <Text
+                adjustsFontSizeToFit
                 style={
                   saveJarValue < 0
                     ? [
@@ -100,12 +110,22 @@ const JarsScreen = (props) => {
                 }>
                 {saveJarValue < 0 ? '-$' : '$'}
               </Text>
-              <Text style={styles.jar__amount__dollars}>
+              <Text
+                adjustsFontSizeToFit={true}
+                style={styles.jar__amount__dollars}>
                 {saveJarValue < 0 ? saveJarValue * -1 : saveJarValue}
               </Text>
             </View>
+            <Text style={styles.jar__label}>Save</Text>
           </View>
-          <Text style={styles.jar__label}>Save</Text>
+          <View style={styles.jar__controls}>
+            <Icon
+              name="remove"
+              size={45}
+              style={[styles.iconcontrol, styles.jar__control]}
+              onPress={() => handleActiveJar(props, 'save', 'minus')}
+            />
+          </View>
         </View>
         <View style={[styles.jar, styles.jarshare]}>
           <View style={styles.jar__controls}>
@@ -114,12 +134,6 @@ const JarsScreen = (props) => {
               size={45}
               style={[styles.iconcontrol, styles.jar__control]}
               onPress={() => handleActiveJar(props, 'share', 'add')}
-            />
-            <Icon
-              name="remove"
-              size={45}
-              style={[styles.iconcontrol, styles.jar__control]}
-              onPress={() => handleActiveJar(props, 'share', 'minus')}
             />
           </View>
           <View style={styles.jar__amount}>
@@ -135,12 +149,22 @@ const JarsScreen = (props) => {
                 }>
                 {shareJarValue < 0 ? '-$' : '$'}
               </Text>
-              <Text style={styles.jar__amount__dollars}>
+              <Text
+                adjustsFontSizeToFit={true}
+                style={styles.jar__amount__dollars}>
                 {shareJarValue < 0 ? shareJarValue * -1 : shareJarValue}
               </Text>
             </View>
+            <Text style={styles.jar__label}>Share</Text>
           </View>
-          <Text style={styles.jar__label}>Share</Text>
+          <View style={styles.jar__controls}>
+            <Icon
+              name="remove"
+              size={45}
+              style={[styles.iconcontrol, styles.jar__control]}
+              onPress={() => handleActiveJar(props, 'share', 'minus')}
+            />
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -199,7 +223,9 @@ const styles = StyleSheet.create({
     marginBottom: 9,
     padding: 18,
     paddingTop: 9,
-    paddingBottom: 36,
+    paddingBottom: 18,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   jarsave: {
     backgroundColor: '#CF2B7A',
@@ -218,7 +244,6 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   jar__amount: {
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -242,6 +267,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Barlow-Regular',
     fontSize: 104,
     lineHeight: 100,
+  },
+  jar__amount__dollars__small: {
+    fontSize: 81,
   },
   jar__label: {
     color: 'white',

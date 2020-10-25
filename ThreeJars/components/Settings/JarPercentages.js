@@ -18,7 +18,7 @@ const JarPercentages = (props) => {
     showJarPercentCheck,
     handleVerifyJarPercentage,
   } = props;
-  console.log('JarPercentages props = ', props);
+  // console.log('JarPercentages props = ', props);
   const spendJarRef = useRef('spendJar');
   const saveJarRef = useRef('saveJar');
   const shareJarRef = useRef('shareJar');
@@ -80,7 +80,7 @@ const JarPercentages = (props) => {
               {backgroundColor: pressed ? '#029326' : '#34C759'},
               styles.button__wrap,
             ]}>
-            <Text style={styles.button__text}>
+            <Text adjustsFontSizeToFit={true} style={styles.button__text}>
               {showJarPercentCheck === true && showJarPercentError === false
                 ? 'Check my maths'
                 : showJarPercentError === false &&
@@ -100,7 +100,7 @@ const JarPercentages = (props) => {
                 fontWeight: 'bold',
                 marginBottom: 9,
               }}>
-              😪 The percents didn't equal 100.
+              😢 The percents didn't equal 100.
             </Text>
             <Text style={{marginBottom: 9}}>
               But that's ok! We've reset the values for you. Please try changing
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   button__row: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 36,
+    marginTop: 9,
   },
   button__wrap: {
     // backgroundColor: '#34C759',

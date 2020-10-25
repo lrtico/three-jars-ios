@@ -304,7 +304,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1170;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -695,6 +695,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 52BB2A1AA69BA734376A750A /* Pods-ThreeJars-ThreeJarsTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = UE4VVEBAJH;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -720,6 +721,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0B0592D2150F01C51D4EAEF0 /* Pods-ThreeJars-ThreeJarsTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = UE4VVEBAJH;

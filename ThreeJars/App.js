@@ -35,7 +35,7 @@ class App extends Component {
     isSelectedPaydayFriday: false,
     isSelectedPaydaySaturday: true,
     paydayTime: '12:00 PM',
-    payDayPickerTime: Date(),
+    payDayPickerTime: new Date(),
     logDataFilter: '',
     logData: [],
     filteredLogData: [],
@@ -70,6 +70,7 @@ class App extends Component {
     this.loadPaydaySettingsTime();
     this.loadPaydaySettingsDay();
     this.loadJarPercent();
+    this.loadChildsInitials();
 
     BackgroundFetch.configure(
       {
@@ -372,10 +373,11 @@ class App extends Component {
           this.setState({payDayPickerTime: new Date()});
         } else {
           const parsedDate = paydayStoredDate.replace(/"/g, '');
-          // console.log('stored payday parsedDate = ', parsedDate);
+          console.log('stored payday parsedDate = ', parsedDate);
 
           const date = new Date(parsedDate);
           // console.log('stored payday date = ', date);
+          // console.log('stored payday date = ', typeof date);
           // console.log(
           //   'loadPaydaySettingsTime string date converted to date object = ',
           //   new Date(date),
@@ -396,7 +398,7 @@ class App extends Component {
   };
 
   loadPaydaySettingsDay = async () => {
-    console.log('loadPaydaySettingsDay go now!');
+    // console.log('loadPaydaySettingsDay go now!');
     try {
       const paydayStoredDay = await AsyncStorage.getItem('@Jars_paydayDay');
       if (paydayStoredDay !== null) {
@@ -463,6 +465,36 @@ class App extends Component {
       }
     } catch (error) {
       console.error('Error fetching AsyncStorage @Jars_spendJarPercent', error);
+    }
+  };
+
+  storeChildsInitials = async (str) => {
+    console.log('storeChildsInitials go now!', str);
+    AsyncStorage.setItem('@Jars_childInitials', str);
+  };
+
+  loadChildsInitials = async () => {
+    console.log('loadChildsInitials go now!');
+    try {
+      const childInitialsStoredAmount = await AsyncStorage.getItem(
+        '@Jars_childInitials',
+      );
+      if (childInitialsStoredAmount !== null) {
+        console.log(
+          'Fetched data from AsyncStorage @Jars_childInitials',
+          childInitialsStoredAmount,
+        );
+        this.setState({
+          childsInitials: childInitialsStoredAmount,
+        });
+      } else {
+        console.log(
+          'No data in AsyncStorage @Jars_childInitials',
+          childInitialsStoredAmount,
+        );
+      }
+    } catch (error) {
+      console.error('Error fetching AsyncStorage @Jars_childInitials', error);
     }
   };
 
@@ -1003,10 +1035,10 @@ class App extends Component {
   };
 
   setChildInitials = (text) => {
-    console.log('setChildInitials text from input = ', text);
-    // this.storePaydaySettingsAmount(text);
+    // console.log('setChildInitials text from input = ', text);
     var str = text.toLowerCase();
     this.setState({childsInitials: str});
+    this.storeChildsInitials(str);
   };
 
   render() {

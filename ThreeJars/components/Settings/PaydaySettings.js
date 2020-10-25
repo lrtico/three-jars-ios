@@ -46,7 +46,7 @@ const PaydaySettings = (props) => {
             onChangeText={(text) => handlePaydayAmount(text)}
             value={paydayAmount}
             placeholder={'Enter amount'}
-            clearButtonMode={'while-editing'}
+            clearButtonMode={'never'}
             keyboardType={'numeric'}
             returnKeyType={'done'}
             maxLength={6}
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
   row__value: {
     fontSize: 18,
     marginLeft: 'auto',
+    marginRight: 3,
   },
   row__icon: {
     color: 'rgba(112,112,112,.5)',
