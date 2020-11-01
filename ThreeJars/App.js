@@ -1,13 +1,16 @@
 import 'react-native-gesture-handler';
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Alert, AsyncStorage} from 'react-native';
 // import AsyncStorage from '@react-native-community/async-storage';
-import BackgroundFetch from 'react-native-background-fetch';
+import BackgroundFetch, {
+  BackgroundFetchStatus,
+} from 'react-native-background-fetch';
 import JarAdd from './components/JarsScreen/JarAdd';
 import JarMinus from './components/JarsScreen/JarMinus';
 import MainStackScreen from './components/Navigation/MainStackScreen';
+import {concat} from 'react-native-reanimated';
 
 const Stack = createStackNavigator();
 const RootStack = createStackNavigator();
@@ -71,170 +74,99 @@ class App extends Component {
     this.loadPaydaySettingsDay();
     this.loadJarPercent();
     this.loadChildsInitials();
+    this.makeInit();
+    // AsyncStorage.clear();
+  }
 
+  scheduleTask = async (name) => {
+    console.log('[BackgroundFetch] scheduleTask fired');
+    try {
+      await BackgroundFetch.scheduleTask({
+        taskId: name,
+        stopOnTerminate: false,
+        enableHeadless: true,
+        delay: 10000, // milliseconds (5s)
+        forceAlarmManager: true, // more precise timing with AlarmManager vs default JobScheduler
+        periodic: false, // Fire once only.
+      });
+    } catch (e) {
+      console.warn('[BackgroundFetch] scheduleTask fail', e);
+    }
+  };
+
+  /// BackgroundFetch event-handler.
+  /// All events from the plugin arrive here, including #scheduleTask events.
+  ///
+  onBackgroundFetchEvent = async (taskId) => {
+    console.log('[BackgroundFetch] Event received: ', taskId);
+
+    if (taskId === 'react-native-background-fetch') {
+      // Test initiating a #scheduleTask when the periodic fetch event is received.
+      console.log(
+        '[onBackgroundFetchEvent] fired with taskId react-native-background-fetch',
+      );
+
+      const today = new Date();
+      const dayOfTheWeek = today.getDay();
+      const {isPaid} = this.state;
+
+      if (dayOfTheWeek === 7) {
+        console.log(
+          `today is the ${dayOfTheWeek} of the week and the date is ${today}`,
+        );
+        if (!isPaid) {
+          console.log(
+            `isPaid is false so add the payday amounts to the three jars.`,
+          );
+          this.setPaydayManually();
+        } else {
+          console.log(`isPaid test is true, the jars have already been paid`);
+          return false;
+        }
+      } else {
+        console.log(
+          `today is not the set payday (${dayOfTheWeek}) of the week and the date is ${today}`,
+        );
+        this.setState({isPaid: false});
+      }
+      try {
+        await this.scheduleTask('com.transistorsoft.customtask');
+      } catch (e) {
+        console.warn('[BackgroundFetch] scheduleTask falied', e);
+      }
+    }
+
+    // Required: Signal completion of your task to native code
+    // If you fail to do this, the OS can terminate your app
+    // or assign battery-blame for consuming too much background-time
+    BackgroundFetch.finish(taskId);
+  };
+
+  /// Configure BackgroundFetch
+  ///
+  makeInit = async () => {
+    console.log('makeInit fired');
     BackgroundFetch.configure(
       {
         minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
+        // Android options
+        forceAlarmManager: false, // <-- Set true to bypass JobScheduler.
+        stopOnTerminate: false,
+        enableHeadless: true,
+        startOnBoot: true,
+        requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
+        requiresCharging: false, // Default
+        requiresDeviceIdle: false, // Default
+        requiresBatteryNotLow: false, // Default
+        requiresStorageNotLow: false, // Default
       },
-      async (taskId) => {
-        console.log('[js] Received background-fetch event: ', taskId);
-        // Add logic to test for payday
-        const today = new Date();
-        const dayOfTheWeek = today.getDay();
-        const {
-          isPaid,
-          spendJarValue,
-          saveJarValue,
-          shareJarValue,
-          logData,
-          paydayAmount,
-          spendJarPercent,
-          saveJarPercent,
-          shareJarPercent,
-        } = this.state;
-
-        if (dayOfTheWeek === 6) {
-          console.log(
-            `today is the ${dayOfTheWeek} of the week and the date is ${today}`,
-          );
-          if (!isPaid) {
-            console.log(
-              `isPaid is false so add the payday amounts to the three jars.`,
-            );
-            const getDate = () => {
-              const date = new Date().toDateString();
-              return date;
-            };
-
-            console.log(
-              `
-          setPaydayManually values to update:
-          --------------------------------------
-          Spend jar new total: ${spendJarValue} + ${
-                paydayAmount * (spendJarPercent / 100)
-              }
-          Save jar new total: ${saveJarValue} + ${
-                paydayAmount * (saveJarPercent / 100)
-              }
-          Share jar new total: ${shareJarValue} + ${
-                paydayAmount * (shareJarPercent / 100)
-              }
-          Log spend jar = {
-            id: ${logData.length + 1},
-            jar: 'spend',
-            date: ${getDate()},
-            details: 'Weekly chores',
-            amount: ${paydayAmount * (spendJarPercent / 100)},
-            new total: ${spendJarValue} + ${
-                paydayAmount * (spendJarPercent / 100)
-              },
-          };
-          Log save jar = {
-            id: ${logData.length + 2},
-            jar: 'save',
-            date: ${getDate()},
-            details: 'Weekly chores',
-            amount: ${paydayAmount * (saveJarPercent / 100)},
-            new total: ${saveJarValue} + ${
-                paydayAmount * (saveJarPercent / 100)
-              },
-          };
-          Log share jar = {
-            id: ${logData.length + 3},
-            jar: 'share',
-            date: ${getDate()},
-            details: 'Weekly chores',
-            amount: ${paydayAmount * (shareJarPercent / 100)},
-            new total: ${shareJarValue} + ${
-                paydayAmount * (shareJarPercent / 100)
-              },
-          };
-        `,
-            );
-
-            // Update spend, save, and share jar values
-            let spendJarNewTotal =
-              spendJarValue + paydayAmount * (spendJarPercent / 100);
-            let saveJarNewTotal =
-              saveJarValue + paydayAmount * (saveJarPercent / 100);
-            let shareJarNewTotal =
-              shareJarValue + paydayAmount * (shareJarPercent / 100);
-
-            let logCopy = [];
-
-            let spendlog = {
-              id: logData.length + 1,
-              jar: 'spend',
-              date: getDate(),
-              details: 'Weekly chores',
-              amount: paydayAmount * (spendJarPercent / 100),
-              total: spendJarNewTotal,
-            };
-            logCopy = [...logData, spendlog];
-            this.storeJarValue('spend', spendJarNewTotal, logCopy);
-
-            let savelog = {
-              id: logData.length + 2,
-              jar: 'save',
-              date: getDate(),
-              details: 'Weekly chores',
-              amount: paydayAmount * (saveJarPercent / 100),
-              total: saveJarNewTotal,
-            };
-            logCopy = [...logCopy, savelog];
-            this.storeJarValue('save', saveJarNewTotal, logCopy);
-
-            let sharelog = {
-              id: logData.length + 3,
-              jar: 'share',
-              date: getDate(),
-              details: 'Weekly chores',
-              amount: paydayAmount * (shareJarPercent / 100),
-              total: shareJarNewTotal,
-            };
-            logCopy = [...logCopy, sharelog];
-            this.storeJarValue('share', shareJarNewTotal, logCopy);
-
-            this.setState({
-              spendJarValue: spendJarNewTotal,
-              saveJarValue: saveJarNewTotal,
-              shareJarValue: shareJarNewTotal,
-              logData: logCopy,
-              filteredLogData: logCopy,
-              isPaid: true,
-            });
-          } else {
-            console.log(`isPaid test is true, the jars have already been paid`);
-            return false;
-          }
-        } else {
-          console.log(
-            `today is not Saturday the ${dayOfTheWeek} of the week and the date is ${today}`,
-          );
-          this.setState({isPaid: false});
-        }
-        BackgroundFetch.finish(taskId);
-      },
-      (error) => {
-        console.log('[js] RNBackgroundFetch failed to start', error);
+      this.onBackgroundFetchEvent,
+      (status) => {
+        setDefaultStatus(statusToString(status));
+        console.log('[BackgroundFetch] status', statusToString(status), status);
       },
     );
-
-    // Optional: Query the authorization status.
-    BackgroundFetch.status((status) => {
-      switch (status) {
-        case BackgroundFetch.STATUS_RESTRICTED:
-          console.log('BackgroundFetch restricted');
-          break;
-        case BackgroundFetch.STATUS_DENIED:
-          console.log('BackgroundFetch denied');
-          break;
-        case BackgroundFetch.STATUS_AVAILABLE:
-          console.log('BackgroundFetch is enabled');
-          break;
-      }
-    });
-  }
+  };
 
   storeJarValue = async (jar, value, logs) => {
     const val = value.toString();
@@ -264,10 +196,17 @@ class App extends Component {
 
       if (spendValue !== null && logs !== null) {
         const spendVal = parseFloat(spendValue);
-        const saveVal = parseFloat(saveValue);
-        const shareVal = parseFloat(shareValue);
+        let saveVal = 0;
+        let shareVal = 0;
         const logParsed = JSON.parse(logs);
-        // console.log('Fetched data from AsyncStorage', spendValue, logParsed);
+        saveValue === null ? (saveVal = 0) : (saveVal = parseFloat(saveValue));
+        shareValue === null
+          ? (shareVal = 0)
+          : (shareVal = parseFloat(shareValue));
+        console.log(
+          'Fetched data from AsyncStorage @Jars_saveJarValue',
+          saveVal,
+        );
         this.setState({
           spendJarValue: spendVal,
           saveJarValue: saveVal,
@@ -277,7 +216,7 @@ class App extends Component {
         });
       } else {
         console.log(
-          'No data in AsyncStorage key',
+          'No data in AsyncStorage @Jars_saveJarValue',
           spendValue,
           saveValue,
           shareValue,
@@ -285,7 +224,7 @@ class App extends Component {
         );
       }
     } catch (error) {
-      console.error('Error fetching AsyncStorage', error);
+      console.error('Error fetching AsyncStorage @Jars_saveJarValue', error);
     }
   };
 
@@ -568,8 +507,8 @@ class App extends Component {
         showJarPercentSuccess: true,
         showJarPercentCheck: false,
       });
+      this.storeJarPercent();
     }
-    this.storeJarPercent();
   };
 
   setPaydayIsEnabled = () => {
@@ -735,14 +674,33 @@ class App extends Component {
   setIncomingJarValue = (amount, jar, math) => {
     const {spendJarValue, saveJarValue, shareJarValue, activeJar} = this.state;
 
-    const incomingValue =
+    let incomingValue =
       math === 'minus' ? parseFloat(amount) * -1 : parseFloat(amount);
 
-    // console.log('incomingValue = ', incomingValue, jar, math);
+    console.log('incomingValue = ', incomingValue);
+
+    let incomingValueRoundedStr = Number(
+      (Math.floor(incomingValue * 100) / 100).toFixed(2),
+    );
+
+    console.log(
+      'incomingValueRoundedStr = ',
+      incomingValueRoundedStr,
+      jar,
+      math,
+      'spendJarValue = ',
+      spendJarValue,
+    );
 
     switch (activeJar) {
       case 'spend':
-        const newSpendTotal = parseFloat(spendJarValue + incomingValue);
+        let newSpendTotal = Number(
+          (
+            Math.floor(spendJarValue + incomingValueRoundedStr * 100) / 100
+          ).toFixed(2),
+        );
+
+        console.log('newSpendTotal = ', newSpendTotal);
 
         this.setState({
           spendJarOldValue: spendJarValue,
@@ -753,7 +711,11 @@ class App extends Component {
         });
         break;
       case 'save':
-        const newSaveTotal = parseFloat(saveJarValue + incomingValue);
+        let newSaveTotal = Number(
+          (
+            Math.floor(saveJarValue + incomingValueRoundedStr * 100) / 100
+          ).toFixed(2),
+        );
 
         this.setState({
           saveJarOldValue: saveJarValue,
@@ -764,7 +726,11 @@ class App extends Component {
         });
         break;
       case 'share':
-        const newShareTotal = parseFloat(shareJarValue + incomingValue);
+        const newShareTotal = Number(
+          (
+            Math.floor(shareJarValue + incomingValueRoundedStr * 100) / 100
+          ).toFixed(2),
+        );
 
         this.setState({
           shareJarOldValue: saveJarValue,
@@ -786,7 +752,7 @@ class App extends Component {
       saveJarIncomingValue,
       saveJarNewValue,
       saveJarNote,
-      shareJarValue,
+      shareJarIncomingValue,
       shareJarNewValue,
       shareJarNote,
       logData,
@@ -1044,6 +1010,7 @@ class App extends Component {
   render() {
     // console.log('App props, ', this.props);
     // console.log('payDayPickerTime = ', this.state.payDayPickerTime);
+
     const {
       activeJar,
       spendJarPercent,

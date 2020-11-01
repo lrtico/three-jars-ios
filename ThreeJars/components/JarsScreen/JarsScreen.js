@@ -30,7 +30,9 @@ const JarsScreen = (props) => {
             />
           ) : (
             <View style={styles.header__circle}>
-              <Text adjustsFontSizeToFit style={styles.header__circle__name}>
+              <Text
+                adjustsFontSizeToFit={true}
+                style={styles.header__circle__name}>
                 {childsInitials}
               </Text>
             </View>

@@ -54,7 +54,7 @@ const MainStackScreen = (props) => {
     handleSettingChildInitials,
   } = props;
 
-  console.log('MainStackScreen props = ', props);
+  // console.log('MainStackScreen props = ', props);
 
   return (
     <Stack.Navigator initialRouteName="Jars">

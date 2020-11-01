@@ -71,7 +71,7 @@ const LogHistory = (props) => {
       total={item.total}
     />
   );
-  console.log('LogHistory props = ', props);
+  // console.log('LogHistory props = ', props);
 
   return (
     <View style={styles.container}>

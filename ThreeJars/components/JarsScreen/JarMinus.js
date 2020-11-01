@@ -6,16 +6,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 const JarMinus = (props) => {
-  // console.log('JarMinus props = ', props);
+  console.log('JarMinus props = ', props);
   const {
     activeJar,
-    spendJarOldValue,
+    spendJarValue,
     spendJarNewValue,
     spendJarNote,
-    saveJarOldValue,
+    saveJarValue,
     saveJarNewValue,
     saveJarNote,
-    shareJarOldValue,
+    shareJarValue,
     shareJarNewValue,
     shareJarNote,
     isDisabledMinusButton,
@@ -69,7 +69,7 @@ const JarMinus = (props) => {
                 ? saveJarNote
                 : shareJarNote
             }
-            clearButtonMode={'while-editing'}
+            clearButtonMode={'never'}
             returnKeyType={'done'}
             maxLength={100}
           />
@@ -122,10 +122,10 @@ const JarMinus = (props) => {
               marginBottom: 6,
             }}>
             {activeJar === 'spend'
-              ? `Spend Jar current total: $${spendJarOldValue}`
+              ? `Spend Jar current total: $${spendJarValue}`
               : activeJar === 'save'
-              ? `Save Jar current total: $${saveJarOldValue}`
-              : `Share Jar current total: $${shareJarOldValue}`}
+              ? `Save Jar current total: $${saveJarValue}`
+              : `Share Jar current total: $${shareJarValue}`}
           </Text>
           <Text
             style={{
@@ -246,12 +246,12 @@ const styles = StyleSheet.create({
 JarMinus.propTypes = {
   activeJar: PropTypes.string,
   spendJarNote: PropTypes.string,
-  spendJarOldValue: PropTypes.number,
+  spendJarValue: PropTypes.number,
   spendJarNewValue: PropTypes.number,
-  saveJarOldValue: PropTypes.number,
+  saveJarValue: PropTypes.number,
   saveJarNewValue: PropTypes.number,
   saveJarNote: PropTypes.string,
-  shareJarOldValue: PropTypes.number,
+  shareJarValue: PropTypes.number,
   shareJarNewValue: PropTypes.number,
   shareJarNote: PropTypes.string,
   isDisabledMinusButton: PropTypes.bool,
