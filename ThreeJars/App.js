@@ -28,6 +28,7 @@ class App extends Component {
     showJarPercentCheck: false,
     paydayIsEnabled: true,
     isDisabledPaydayManually: false,
+    showPaydayManuallyModal: false,
     paydayAmount: '5',
     isSelectedPayday: 'Saturday',
     isSelectedPaydaySunday: false,
@@ -61,6 +62,7 @@ class App extends Component {
     isDisabledMinusButton: true,
     isDisabledAddButton: true,
     childsInitials: '',
+    paydaySMSNumber: '',
     isPaid: false,
   };
 
@@ -74,6 +76,8 @@ class App extends Component {
     this.loadPaydaySettingsDay();
     this.loadJarPercent();
     this.loadChildsInitials();
+    this.loadIsPaid();
+    this.loadPaydaySMSNumber();
     this.makeInit();
     // AsyncStorage.clear();
   }
@@ -108,17 +112,80 @@ class App extends Component {
 
       const today = new Date();
       const dayOfTheWeek = today.getDay();
-      const {isPaid} = this.state;
+      const {isPaid, isSelectedPayday} = this.state;
+      let payday = 7;
 
-      if (dayOfTheWeek === 7) {
+      switch (isSelectedPayday) {
+        case 'Sunday':
+          payday = 0;
+          console.log(
+            'Stored pay day = Sunday so background fetch payday = ',
+            payday,
+          );
+          break;
+        case 'Monday':
+          payday = 1;
+          console.log(
+            'Stored pay day = Monday so background fetch payday = ',
+            payday,
+          );
+          break;
+        case 'Tuesday':
+          payday = 2;
+          console.log(
+            'Stored pay day = Tuesday so background fetch payday = ',
+            payday,
+          );
+          break;
+        case 'Wednesday':
+          payday = 3;
+          console.log(
+            'Stored pay day = Wednesday so background fetch payday = ',
+            payday,
+          );
+          break;
+        case 'Thursday':
+          payday = 4;
+          console.log(
+            'Stored pay day = Thursday so background fetch payday = ',
+            payday,
+          );
+          break;
+        case 'Friday':
+          payday = 5;
+          console.log(
+            'Stored pay day = Friday so background fetch payday = ',
+            payday,
+          );
+          break;
+        case 'Saturday':
+          payday = 6;
+          console.log(
+            'Stored pay day = Saturday so background fetch payday = ',
+            payday,
+          );
+          break;
+        default:
+          payday = 7;
+          break;
+      }
+
+      console.log(
+        'after background fetch payday switch, isSelectedPayday = ',
+        payday,
+      );
+
+      if (dayOfTheWeek === payday) {
         console.log(
-          `today is the ${dayOfTheWeek} of the week and the date is ${today}`,
+          `today is the ${dayOfTheWeek} of the week and the date is ${today} which means it's payday`,
         );
         if (!isPaid) {
           console.log(
-            `isPaid is false so add the payday amounts to the three jars.`,
+            `isPaid is false so add the payday amounts to the three jars and set isPaid to true.`,
           );
           this.setPaydayManually();
+          this.setState({isPaid: true});
+          this.storeIsPaid('true');
         } else {
           console.log(`isPaid test is true, the jars have already been paid`);
           return false;
@@ -260,6 +327,33 @@ class App extends Component {
   storePaydaySettingsAmount = async (amount) => {
     console.log('storePaydaySettingsAmount go now!', amount);
     AsyncStorage.setItem('@Jars_payDayAmount', amount);
+  };
+
+  storeIsPaid = async (arg) => {
+    console.log('storeIsPaid go now and make isPaid', arg);
+    const isPaidString = arg === true ? 'true' : 'false';
+    AsyncStorage.setItem('@Jars_isPaid', arg);
+  };
+
+  loadIsPaid = async () => {
+    console.log('loadIsPaid go now!');
+    try {
+      const isPaidVal = await AsyncStorage.getItem('@Jars_isPaid');
+      const isPaidBoolean = isPaidVal === 'true' ? true : false;
+      if (isPaidBoolean !== null) {
+        console.log(
+          'Fetched data from AsyncStorage @Jars_isPaid',
+          isPaidBoolean,
+        );
+        this.setState({
+          isPaid: isPaidBoolean,
+        });
+      } else {
+        console.log('No data in AsyncStorage @Jars_isPaid', isPaidBoolean);
+      }
+    } catch (error) {
+      console.error('Error fetching AsyncStorage @Jars_isPaid', error);
+    }
   };
 
   loadPaydaySettingsAmount = async () => {
@@ -434,6 +528,36 @@ class App extends Component {
       }
     } catch (error) {
       console.error('Error fetching AsyncStorage @Jars_childInitials', error);
+    }
+  };
+
+  storePaydaySMSNumber = async (number) => {
+    console.log('storePaydaySMSNumber go now!', number);
+    AsyncStorage.setItem('@Jars_parentPhone', number);
+  };
+
+  loadPaydaySMSNumber = async () => {
+    console.log('loadPaydaySMSNumber go now!');
+    try {
+      const parentPhoneStoredAmount = await AsyncStorage.getItem(
+        '@Jars_parentPhone',
+      );
+      if (parentPhoneStoredAmount !== null) {
+        console.log(
+          'Fetched data from AsyncStorage @Jars_parentPhone',
+          parentPhoneStoredAmount,
+        );
+        this.setState({
+          paydaySMSNumber: parentPhoneStoredAmount,
+        });
+      } else {
+        console.log(
+          'No data in AsyncStorage @Jars_parentPhone',
+          parentPhoneStoredAmount,
+        );
+      }
+    } catch (error) {
+      console.error('Error fetching AsyncStorage @Jars_parentPhone', error);
     }
   };
 
@@ -674,67 +798,96 @@ class App extends Component {
   setIncomingJarValue = (amount, jar, math) => {
     const {spendJarValue, saveJarValue, shareJarValue, activeJar} = this.state;
 
+    // Limit decimals to 2
+    let limitedDecimals = amount;
+    amount =
+      limitedDecimals.indexOf('.') >= 0
+        ? limitedDecimals.substr(0, limitedDecimals.indexOf('.')) +
+          limitedDecimals.substr(limitedDecimals.indexOf('.'), 3)
+        : limitedDecimals;
+
+    console.log('limit decimals to 2, incoming value = ', amount);
+
     let incomingValue =
       math === 'minus' ? parseFloat(amount) * -1 : parseFloat(amount);
 
     console.log('incomingValue = ', incomingValue);
 
-    let incomingValueRoundedStr = Number(
-      (Math.floor(incomingValue * 100) / 100).toFixed(2),
-    );
+    // let incomingValueRoundedStr = Number(
+    //   (Math.floor(incomingValue * 100) / 100).toFixed(2),
+    // );
 
-    console.log(
-      'incomingValueRoundedStr = ',
-      incomingValueRoundedStr,
-      jar,
-      math,
-      'spendJarValue = ',
-      spendJarValue,
-    );
+    // console.log(
+    //   'incomingValueRoundedStr = ',
+    //   incomingValueRoundedStr,
+    //   jar,
+    //   math,
+    //   'spendJarValue = ',
+    //   spendJarValue,
+    // );
 
     switch (activeJar) {
       case 'spend':
-        let newSpendTotal = Number(
-          (
-            Math.floor(spendJarValue + incomingValueRoundedStr * 100) / 100
-          ).toFixed(2),
-        );
+        let newSpendTotal =
+          spendJarValue +
+          Number((Math.floor(incomingValue * 100) / 100).toFixed(2));
 
         console.log('newSpendTotal = ', newSpendTotal);
 
+        let newSpendTotalRounded = Number(
+          (Math.floor(newSpendTotal * 100) / 100).toFixed(2),
+        );
+
+        console.log('newSpendTotalRounded = ', newSpendTotalRounded);
+        console.log('spendJarOldValue about = ', spendJarValue);
+
         this.setState({
           spendJarOldValue: spendJarValue,
-          spendJarNewValue: newSpendTotal,
+          spendJarNewValue: newSpendTotalRounded,
           isDisabledMinusButton: false,
           isDisabledAddButton: false,
           spendJarIncomingValue: incomingValue,
         });
         break;
       case 'save':
-        let newSaveTotal = Number(
-          (
-            Math.floor(saveJarValue + incomingValueRoundedStr * 100) / 100
-          ).toFixed(2),
+        let newSaveTotal =
+          saveJarValue +
+          Number((Math.floor(incomingValue * 100) / 100).toFixed(2));
+
+        console.log('newSaveTotal = ', newSaveTotal);
+
+        let newSaveTotalRounded = Number(
+          (Math.floor(newSaveTotal * 100) / 100).toFixed(2),
         );
+
+        console.log('newSpendTotalRounded = ', newSaveTotalRounded);
+        console.log('spendJarOldValue about = ', spendJarValue);
 
         this.setState({
           saveJarOldValue: saveJarValue,
-          saveJarNewValue: newSaveTotal,
+          saveJarNewValue: newSaveTotalRounded,
           isDisabledMinusButton: false,
           isDisabledAddButton: false,
           saveJarIncomingValue: incomingValue,
         });
         break;
       case 'share':
-        const newShareTotal = Number(
-          (
-            Math.floor(shareJarValue + incomingValueRoundedStr * 100) / 100
-          ).toFixed(2),
+        const newShareTotal =
+          shareJarValue +
+          Number((Math.floor(incomingValue * 100) / 100).toFixed(2));
+
+        console.log('newShareTotal = ', newShareTotal);
+
+        let newShareTotalRounded = Number(
+          (Math.floor(newShareTotal * 100) / 100).toFixed(2),
         );
+
+        console.log('newSpendTotalRounded = ', newShareTotalRounded);
+        console.log('spendJarOldValue about = ', spendJarValue);
 
         this.setState({
           shareJarOldValue: saveJarValue,
-          shareJarNewValue: newShareTotal,
+          shareJarNewValue: newShareTotalRounded,
           isDisabledMinusButton: false,
           isDisabledAddButton: false,
           shareJarIncomingValue: incomingValue,
@@ -854,7 +1007,7 @@ class App extends Component {
   };
 
   cancelChangeJarValue = (props) => {
-    // console.log('cancelChangeJarValue go now!', props);
+    console.log('cancelChangeJarValue go now!', props);
     const {activeJar} = this.state;
 
     switch (activeJar) {
@@ -886,7 +1039,7 @@ class App extends Component {
     props.navigation.goBack();
   };
 
-  setPaydayManually = () => {
+  setPaydayManually = (props) => {
     const {
       spendJarValue,
       saveJarValue,
@@ -997,7 +1150,10 @@ class App extends Component {
       filteredLogData: logCopy,
     });
 
+    // console.log('setPaydayManually props = ', props);
     // console.log('Post manual payday call state = ', this.state);
+    props.navigation.navigate('Jars');
+    this.setShowPaydayManuallyModal();
   };
 
   setChildInitials = (text) => {
@@ -1007,9 +1163,20 @@ class App extends Component {
     this.storeChildsInitials(str);
   };
 
+  setPaydaySMSNumber = (text) => {
+    console.log('setPaydaySMSNumber text from input = ', text);
+    this.setState({paydaySMSNumber: text});
+    this.storePaydaySMSNumber(text);
+  };
+
+  setShowPaydayManuallyModal = () => {
+    const {showPaydayManuallyModal} = this.state;
+    this.setState({showPaydayManuallyModal: !showPaydayManuallyModal});
+  };
+
   render() {
     // console.log('App props, ', this.props);
-    // console.log('payDayPickerTime = ', this.state.payDayPickerTime);
+    console.log('isPaid = ', this.state.isPaid);
 
     const {
       activeJar,
@@ -1022,6 +1189,7 @@ class App extends Component {
       showJarPercentError,
       showJarPercentCheck,
       showJarPercentSuccess,
+      showPaydayManuallyModal,
       paydayIsEnabled,
       paydayAmount,
       isSelectedPaydaySunday,
@@ -1052,6 +1220,7 @@ class App extends Component {
       isDisabledAddButton,
       isDisabledPaydayManually,
       childsInitials,
+      paydaySMSNumber,
     } = this.state;
     return (
       <NavigationContainer>
@@ -1074,6 +1243,8 @@ class App extends Component {
                 handleActiveJar={this.setActiveJar}
                 handlePayManually={this.setPaydayManually}
                 handleSettingChildInitials={this.setChildInitials}
+                handleShowPaydayManuallyModal={this.setShowPaydayManuallyModal}
+                handlePaydaySMSNumber={this.setPaydaySMSNumber}
                 spendJarPercent={spendJarPercent}
                 saveJarPercent={saveJarPercent}
                 shareJarPercent={shareJarPercent}
@@ -1089,6 +1260,7 @@ class App extends Component {
                 showJarPercentError={showJarPercentError}
                 showJarPercentSuccess={showJarPercentSuccess}
                 showJarPercentCheck={showJarPercentCheck}
+                showPaydayManuallyModal={showPaydayManuallyModal}
                 isSelectedPaydaySunday={isSelectedPaydaySunday}
                 isSelectedPaydayMonday={isSelectedPaydayMonday}
                 isSelectedPaydayTuesday={isSelectedPaydayTuesday}
@@ -1102,6 +1274,7 @@ class App extends Component {
                 saveJarValue={saveJarValue}
                 shareJarValue={shareJarValue}
                 childsInitials={childsInitials}
+                paydaySMSNumber={paydaySMSNumber}
               />
             )}
           </RootStack.Screen>

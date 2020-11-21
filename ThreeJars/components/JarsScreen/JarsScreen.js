@@ -6,12 +6,14 @@ import {
   Text,
   Pressable,
   Image,
+  Modal,
+  TouchableHighlight,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 const JarsScreen = (props) => {
-  // console.log('Jarsscreen props, ', props);
+  console.log('Jarsscreen props, ', props);
   const {
     spendJarValue,
     saveJarValue,
@@ -19,9 +21,35 @@ const JarsScreen = (props) => {
     handleActiveJar,
     navigation,
     childsInitials,
+    showPaydayManuallyModal,
+    handleShowPaydayManuallyModal,
   } = props;
   return (
-    <SafeAreaView style={styles.jarswrapper}>
+    <SafeAreaView style={styles.wrapper}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showPaydayManuallyModal}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Payday has been paid!</Text>
+
+            <TouchableHighlight
+              style={styles.closeButton}
+              onPress={() => handleShowPaydayManuallyModal()}>
+              {/* <Text style={styles.textStyle}>X</Text> */}
+              <Icon
+                name="close"
+                size={24}
+                style={[styles.iconcontrol, styles.jar__control]}
+              />
+            </TouchableHighlight>
+          </View>
+        </View>
+      </Modal>
       <View style={styles.jarswrapper}>
         <View style={styles.header}>
           {childsInitials === '' ? (
@@ -278,6 +306,51 @@ const styles = StyleSheet.create({
     fontFamily: 'Barlow-Bold',
     fontSize: 24,
     marginTop: -9,
+    textAlign: 'center',
+  },
+  wrapper: {
+    flexGrow: 1,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+  },
+  centeredView: {
+    flexGrow: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  modalView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    margin: 18,
+    backgroundColor: '#202124',
+    borderRadius: 3,
+    padding: 27,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginTop: 'auto',
+  },
+  closeButton: {
+    backgroundColor: '#4AA34E',
+    borderRadius: 100,
+    padding: 13,
+    elevation: 2,
+    marginLeft: 18,
+  },
+  textStyle: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  modalText: {
+    color: 'white',
+    fontWeight: 'bold',
     textAlign: 'center',
   },
 });

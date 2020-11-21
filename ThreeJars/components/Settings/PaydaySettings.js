@@ -23,13 +23,15 @@ const PaydaySettings = (props) => {
     isDisabledPaydayManually,
     paydayTime,
     handlePayManually,
+    handlePaydaySMSNumber,
+    paydaySMSNumber,
   } = props;
 
   return (
     <View style={styles.container}>
       <View style={styles.section}>
         <View style={[styles.row, styles.rowBorderBottom]}>
-          <Text style={styles.row__title}>Enable Automatic Payday</Text>
+          <Text style={styles.row__title}>Enable automatic payday</Text>
           <Switch
             trackColor={{false: '#767577', true: '#34C759'}}
             thumbColor={paydayIsEnabled ? 'white' : '#f4f3f4'}
@@ -39,8 +41,7 @@ const PaydaySettings = (props) => {
           />
         </View>
         <View style={[styles.row, styles.rowBorderBottom]}>
-          <Text style={styles.row__title}>Amount</Text>
-          <Text style={styles.row__value}>$</Text>
+          <Text style={styles.row__title}>Allowance amount ($)</Text>
           <TextInput
             style={styles.textinput}
             onChangeText={(text) => handlePaydayAmount(text)}
@@ -54,11 +55,12 @@ const PaydaySettings = (props) => {
         </View>
         <View>
           <Pressable
-            style={styles.row}
+            style={[styles.row, styles.rowBorderBottom]}
             onPress={() => navigation.navigate('ChoosePayday')}>
-            <Text style={styles.row__title}>Day/time</Text>
-            <Text style={[styles.row__value, styles.row__icon]}>
-              {`${isSelectedPayday} ${paydayTime}`}
+            <Text style={styles.row__title}>Day</Text>
+            <Text
+              style={[styles.row__value, styles.row__icon, styles.alignRight]}>
+              {`${isSelectedPayday}`}
             </Text>
             <Icon
               name="arrow-forward-ios"
@@ -68,10 +70,23 @@ const PaydaySettings = (props) => {
             />
           </Pressable>
         </View>
+        <View style={styles.row}>
+          <Text style={styles.row__title}>Parent's phone number</Text>
+          <TextInput
+            style={styles.textinput}
+            onChangeText={(text) => handlePaydaySMSNumber(text)}
+            value={paydaySMSNumber}
+            placeholder={'Enter number'}
+            clearButtonMode={'never'}
+            keyboardType={'phone-pad'}
+            returnKeyType={'done'}
+            maxLength={10}
+          />
+        </View>
       </View>
       <View style={styles.button__row}>
         <Pressable
-          onPress={handlePayManually}
+          onPress={() => handlePayManually(props)}
           disabled={isDisabledPaydayManually === true ? true : false}
           style={
             isDisabledPaydayManually === true
@@ -139,7 +154,7 @@ const styles = StyleSheet.create({
   },
   row__value: {
     fontSize: 18,
-    marginLeft: 'auto',
+    marginLeft: 3,
     marginRight: 3,
   },
   row__icon: {
@@ -155,8 +170,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: 350,
   },
+  alignRight: {marginLeft: 'auto'},
   textinput: {
     fontSize: 18,
+    flex: 1,
+    textAlign: 'right',
   },
   button__row: {
     flexDirection: 'row',

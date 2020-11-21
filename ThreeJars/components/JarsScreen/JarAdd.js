@@ -56,6 +56,23 @@ const JarAdd = (props) => {
             ? [styles.wrapper, {backgroundColor: '#CF2B7A'}]
             : [styles.wrapper, {backgroundColor: '#24C3E3'}]
         }>
+        <View style={styles.amountwrapper}>
+          <TextInput
+            style={styles.amount}
+            onChangeText={(text) =>
+              activeJar === 'spend'
+                ? handleIncomingJarValue(text, 'spend', 'add')
+                : activeJar === 'save'
+                ? handleIncomingJarValue(text, 'save', 'add')
+                : handleIncomingJarValue(text, 'share', 'add')
+            }
+            placeholder={'$'}
+            clearButtonMode={'never'}
+            keyboardType={'numeric'}
+            returnKeyType={'done'}
+            maxLength={6}
+          />
+        </View>
         <View style={styles.notewrapper}>
           <Text style={styles.notelabel}>Note:</Text>
           <TextInput
@@ -73,22 +90,12 @@ const JarAdd = (props) => {
             maxLength={100}
           />
         </View>
-        <View style={styles.amountwrapper}>
-          <TextInput
-            style={styles.amount}
-            onChangeText={(text) =>
-              activeJar === 'spend'
-                ? handleIncomingJarValue(text, 'spend', 'add')
-                : activeJar === 'save'
-                ? handleIncomingJarValue(text, 'save', 'add')
-                : handleIncomingJarValue(text, 'share', 'add')
-            }
-            placeholder={'$'}
-            clearButtonMode={'never'}
-            keyboardType={'numeric'}
-            returnKeyType={'done'}
-            maxLength={6}
-          />
+        <View
+          style={{
+            marginTop: 54,
+            textAlign: 'center',
+            alignItems: 'center',
+          }}>
           <Pressable
             disabled={isDisabledAddButton}
             onPress={
@@ -169,12 +176,13 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     paddingLeft: 18,
     paddingRight: 18,
   },
   notewrapper: {
     flexDirection: 'row',
+    marginTop: 36,
   },
   notelabel: {
     color: 'white',

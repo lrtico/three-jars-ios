@@ -117,7 +117,7 @@ const PaydayDateTimeSettings = (props) => {
           </Pressable>
         </View>
       </View>
-      <View style={styles.section}>
+      {/* <View style={styles.section}>
         <View style={styles.row}>
           <Text style={styles.title}>Time of day</Text>
           <DateTimePicker
@@ -129,7 +129,7 @@ const PaydayDateTimeSettings = (props) => {
             style={{width: 320, backgroundColor: 'white'}}
           />
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };

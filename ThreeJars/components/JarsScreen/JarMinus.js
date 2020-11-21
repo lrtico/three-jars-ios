@@ -57,6 +57,23 @@ const JarMinus = (props) => {
             ? [styles.wrapper, {backgroundColor: '#CF2B7A'}]
             : [styles.wrapper, {backgroundColor: '#24C3E3'}]
         }>
+        <View style={styles.amountwrapper}>
+          <TextInput
+            style={styles.amount}
+            onChangeText={(text) =>
+              activeJar === 'spend'
+                ? handleIncomingJarValue(text, 'spend', 'minus')
+                : activeJar === 'save'
+                ? handleIncomingJarValue(text, 'save', 'minus')
+                : handleIncomingJarValue(text, 'share', 'minus')
+            }
+            placeholder={'$'}
+            clearButtonMode={'never'}
+            keyboardType={'numeric'}
+            returnKeyType={'done'}
+            maxLength={6}
+          />
+        </View>
         <View style={styles.notewrapper}>
           <Text style={styles.notelabel}>Note:</Text>
           <TextInput
@@ -74,22 +91,12 @@ const JarMinus = (props) => {
             maxLength={100}
           />
         </View>
-        <View style={styles.amountwrapper}>
-          <TextInput
-            style={styles.amount}
-            onChangeText={(text) =>
-              activeJar === 'spend'
-                ? handleIncomingJarValue(text, 'spend', 'minus')
-                : activeJar === 'save'
-                ? handleIncomingJarValue(text, 'save', 'minus')
-                : handleIncomingJarValue(text, 'share', 'minus')
-            }
-            placeholder={'$'}
-            clearButtonMode={'never'}
-            keyboardType={'numeric'}
-            returnKeyType={'done'}
-            maxLength={6}
-          />
+        <View
+          style={{
+            marginTop: 54,
+            textAlign: 'center',
+            alignItems: 'center',
+          }}>
           <Pressable
             disabled={isDisabledMinusButton}
             onPress={
@@ -100,7 +107,9 @@ const JarMinus = (props) => {
                 : () => handleJarValue(props, 'share')
             }
             style={
-              isDisabledMinusButton ? styles.buttondisabled : styles.button
+              isDisabledMinusButton
+                ? [styles.buttondisabled, {textAlign: 'center'}]
+                : [styles.button, {textAlign: 'center'}]
             }>
             <Text
               style={
@@ -120,6 +129,7 @@ const JarMinus = (props) => {
               fontSize: 16,
               marginTop: 27,
               marginBottom: 6,
+              textAlign: 'center',
             }}>
             {activeJar === 'spend'
               ? `Spend Jar current total: $${spendJarValue}`
@@ -132,6 +142,7 @@ const JarMinus = (props) => {
               color: 'white',
               fontFamily: 'Barlow-Regular',
               fontSize: 16,
+              textAlign: 'center',
             }}>
             {activeJar === 'spend'
               ? `Spend Jar new total: $${spendJarNewValue}`
@@ -172,12 +183,13 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     paddingLeft: 18,
     paddingRight: 18,
   },
   notewrapper: {
     flexDirection: 'row',
+    marginTop: 36,
   },
   notelabel: {
     color: 'white',

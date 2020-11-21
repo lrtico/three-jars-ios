@@ -37,7 +37,7 @@ const JarPercentages = (props) => {
               step={1}
               thumbTintColor="#34C759"
               value={spendJarPercent}
-              onValueChange={(val) => handleJarPercentage(val, spendJarRef)}
+              onSlidingComplete={(val) => handleJarPercentage(val, spendJarRef)}
             />
             <Text style={styles.row__value}>{spendJarPercent}%</Text>
           </View>
@@ -53,7 +53,7 @@ const JarPercentages = (props) => {
               step={1}
               thumbTintColor="#34C759"
               value={saveJarPercent}
-              onValueChange={(val) => handleJarPercentage(val, saveJarRef)}
+              onSlidingComplete={(val) => handleJarPercentage(val, saveJarRef)}
             />
             <Text style={styles.row__value}>{saveJarPercent}%</Text>
           </View>
@@ -68,7 +68,7 @@ const JarPercentages = (props) => {
               minimumTrackTintColor="#34C759"
               thumbTintColor="#34C759"
               value={shareJarPercent}
-              onValueChange={(val) => handleJarPercentage(val, shareJarRef)}
+              onSlidingComplete={(val) => handleJarPercentage(val, shareJarRef)}
             />
             <Text style={styles.row__value}>{shareJarPercent}%</Text>
           </View>
