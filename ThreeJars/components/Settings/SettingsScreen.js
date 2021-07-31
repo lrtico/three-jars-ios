@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import WeeklyAllowanceSettings from './WeeklyAllowanceSettings';
 import Log from './Log';
 import ChildInitials from './ChildInitials';

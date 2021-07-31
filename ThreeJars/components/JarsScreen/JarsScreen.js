@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 Icon.loadFont();
 
 const JarsScreen = (props) => {
-  console.log('Jarsscreen props, ', props);
+  // console.log('Jarsscreen props, ', props);
   const {
     spendJarValue,
     saveJarValue,
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
     marginBottom: 9,
     padding: 18,
     paddingTop: 9,
-    paddingBottom: 18,
+    paddingBottom: 9,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -279,6 +279,7 @@ const styles = StyleSheet.create({
   },
   jar__amount__wrap: {
     flexDirection: 'row',
+    marginTop: 36,
   },
   jar__amount__dollarsign: {
     color: 'white',

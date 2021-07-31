@@ -7,6 +7,7 @@ import {Alert, AsyncStorage} from 'react-native';
 import BackgroundFetch, {
   BackgroundFetchStatus,
 } from 'react-native-background-fetch';
+import SendSMS from 'react-native-sms';
 import JarAdd from './components/JarsScreen/JarAdd';
 import JarMinus from './components/JarsScreen/JarMinus';
 import MainStackScreen from './components/Navigation/MainStackScreen';
@@ -933,7 +934,7 @@ class App extends Component {
         };
 
         // console.log('log = ', log);
-        logCopy = [...logData, log];
+        logCopy = [log, ...logData];
         // console.log('logCopy = ', logCopy);
 
         this.setState({
@@ -959,7 +960,7 @@ class App extends Component {
         };
 
         // console.log('log = ', log);
-        logCopy = [...logData, log];
+        logCopy = [log, ...logData];
         // console.log('logCopy = ', logCopy);
 
         this.setState({
@@ -985,7 +986,7 @@ class App extends Component {
         };
 
         // console.log('log = ', log);
-        logCopy = [...logData, log];
+        logCopy = [log, ...logData];
         // console.log('logCopy = ', logCopy);
 
         this.setState({
@@ -1049,6 +1050,8 @@ class App extends Component {
       spendJarPercent,
       saveJarPercent,
       shareJarPercent,
+      paydaySMSNumber,
+      childsInitials,
     } = this.state;
 
     const getDate = () => {
@@ -1061,13 +1064,13 @@ class App extends Component {
         setPaydayManually values to update:
         --------------------------------------
         Spend jar new total: ${spendJarValue} + ${
-        paydayAmount * (spendJarPercent / 100)
+        paydayAmount * (spendJarPercent / 100).toFixed(2)
       }
         Save jar new total: ${saveJarValue} + ${
-        paydayAmount * (saveJarPercent / 100)
+        paydayAmount * (saveJarPercent / 100).toFixed(2)
       }
         Share jar new total: ${shareJarValue} + ${
-        paydayAmount * (shareJarPercent / 100)
+        paydayAmount * (shareJarPercent / 100).toFixed(2)
       }
         Log spend jar = {
           id: ${logData.length + 1},
@@ -1101,11 +1104,20 @@ class App extends Component {
     );
 
     // Update spend, save, and share jar values
-    let spendJarNewTotal =
-      spendJarValue + paydayAmount * (spendJarPercent / 100);
-    let saveJarNewTotal = saveJarValue + paydayAmount * (saveJarPercent / 100);
-    let shareJarNewTotal =
-      shareJarValue + paydayAmount * (shareJarPercent / 100);
+    let spendJarNewTotal = (
+      spendJarValue +
+      paydayAmount * (spendJarPercent / 100)
+    ).toFixed(2);
+
+    let saveJarNewTotal = (
+      saveJarValue +
+      paydayAmount * (saveJarPercent / 100)
+    ).toFixed(2);
+
+    let shareJarNewTotal = (
+      shareJarValue +
+      paydayAmount * (shareJarPercent / 100)
+    ).toFixed(2);
 
     let logCopy = [];
 
@@ -1114,10 +1126,10 @@ class App extends Component {
       jar: 'spend',
       date: getDate(),
       details: 'Weekly chores',
-      amount: paydayAmount * (spendJarPercent / 100),
+      amount: (paydayAmount * (spendJarPercent / 100)).toFixed(2),
       total: spendJarNewTotal,
     };
-    logCopy = [...logData, spendlog];
+    logCopy = [spendlog, ...logData];
     this.storeJarValue('spend', spendJarNewTotal, logCopy);
 
     let savelog = {
@@ -1125,10 +1137,10 @@ class App extends Component {
       jar: 'save',
       date: getDate(),
       details: 'Weekly chores',
-      amount: paydayAmount * (saveJarPercent / 100),
+      amount: (paydayAmount * (saveJarPercent / 100)).toFixed(2),
       total: saveJarNewTotal,
     };
-    logCopy = [...logCopy, savelog];
+    logCopy = [savelog, ...logCopy];
     this.storeJarValue('save', saveJarNewTotal, logCopy);
 
     let sharelog = {
@@ -1136,10 +1148,10 @@ class App extends Component {
       jar: 'share',
       date: getDate(),
       details: 'Weekly chores',
-      amount: paydayAmount * (shareJarPercent / 100),
+      amount: (paydayAmount * (shareJarPercent / 100)).toFixed(2),
       total: shareJarNewTotal,
     };
-    logCopy = [...logCopy, sharelog];
+    logCopy = [sharelog, ...logCopy];
     this.storeJarValue('share', shareJarNewTotal, logCopy);
 
     this.setState({
@@ -1152,8 +1164,43 @@ class App extends Component {
 
     // console.log('setPaydayManually props = ', props);
     // console.log('Post manual payday call state = ', this.state);
-    props.navigation.navigate('Jars');
-    this.setShowPaydayManuallyModal();
+
+    // Send an SMS
+    // Check for stored phone number
+    if (paydaySMSNumber.length > 0) {
+      SendSMS.send(
+        {
+          // Message body
+          body: `Bankbuddy has paid ${
+            childsInitials !== '' ? childsInitials : 'your child'
+          } their allowance manually.`,
+          // Recipients Number
+          recipients: [paydaySMSNumber],
+          allowAndroidSendWithoutReadPermission: true,
+          // An array of types
+          // "completed" response when using android
+          successTypes: ['sent', 'queued'],
+        },
+        (completed, cancelled, error) => {
+          if (completed) {
+            console.log('SMS Sent Completed');
+            props.navigation.navigate('Jars');
+            this.setShowPaydayManuallyModal();
+          } else if (cancelled) {
+            console.log('SMS Sent Cancelled');
+            props.navigation.navigate('Jars');
+            this.setShowPaydayManuallyModal();
+          } else if (error) {
+            console.log('Some error occured with SendSMS');
+            props.navigation.navigate('Jars');
+            this.setShowPaydayManuallyModal();
+          }
+        },
+      );
+    } else {
+      props.navigation.navigate('Jars');
+      this.setShowPaydayManuallyModal();
+    }
   };
 
   setChildInitials = (text) => {
@@ -1176,7 +1223,7 @@ class App extends Component {
 
   render() {
     // console.log('App props, ', this.props);
-    console.log('isPaid = ', this.state.isPaid);
+    // console.log('isPaid = ', this.state.isPaid);
 
     const {
       activeJar,
@@ -1231,6 +1278,8 @@ class App extends Component {
             {(props) => (
               <MainStackScreen
                 {...props}
+                isDisabledMinusButton={isDisabledMinusButton}
+                isDisabledAddButton={isDisabledAddButton}
                 handlePaydayOfTheWeek={this.setPaydayOfTheWeek}
                 handlePaydayTime={this.setPaydayTime}
                 handleLogDataFilter={this.onFilterLogData}

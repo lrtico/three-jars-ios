@@ -58,7 +58,7 @@ const MainStackScreen = (props) => {
     handlePaydaySMSNumber,
   } = props;
 
-  // console.log('MainStackScreen props = ', props);
+  console.log('MainStackScreen props = ', props);
 
   return (
     <Stack.Navigator initialRouteName="Jars">
